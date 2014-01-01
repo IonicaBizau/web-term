@@ -6,6 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+      "tty.js": "*"
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/IonicaBizau/browser-terminal.git"
