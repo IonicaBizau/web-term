@@ -1,6 +1,6 @@
 {
   "name": "johnnys-terminal",
-  "version": "0.0.4",
+  "version": "v0.1.0",
   "description": "A NodeJS based terminal that runs in browser as a local server.",
   "main": "index.js",
   "scripts": {
