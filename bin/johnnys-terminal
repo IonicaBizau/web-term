@@ -1,3 +1,4 @@
 #!/bin/bash
 
 echo "Johnny's Terminal - Welcome!"
+node /usr/lib/node_modules/johnnys-terminal/node_modules/tty.js/bin/tty.js
