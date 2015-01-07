@@ -1,13 +1,13 @@
 {
-  "name": "johnnys-terminal",
-  "version": "v0.1.0",
+  "name": "browser-term",
+  "version": "1.0.0",
   "description": "A NodeJS based terminal that runs in browser as a local server.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-      "tty.js": "*"
+    "tty.js": "*"
   },
   "bin": {
     "johnnys-terminal": "./bin/johnnys-terminal"
@@ -24,5 +24,7 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/browser-terminal/issues"
-  }
+  },
+  "homepage": "https://github.com/IonicaBizau/browser-terminal",
+  "devDependencies": {}
 }
