@@ -5,6 +5,27 @@
         var term = new EventEmitter;
         var inherits = Terminal.inherits;
 
+        term.updateSize = function () {
+            //TODO
+            return;
+            var $terminal = $(".terminal", $self);
+            var x = Math.floor($terminal.width() / 6.6);
+            var y = Math.floor($terminal.height() / 5.539);
+
+            term.w.cols = x;
+            term.w.rows = y;
+
+            term.socket.emit("resize", term.id, x, y);
+            //term.tab.resize(x, y);
+            term.tab.reset();
+        };
+
+        var _resizeTimer = null;
+        $(window).on("resize", function () {
+            clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(term.updateSize, 500);
+        });
+
         function openTerm() {
             term.socket = io.connect();
 
@@ -24,8 +45,11 @@
             var $button = $("<div>").addClass("grip");
             var $title = $("<div>").addClass("title");
 
-            win.cols = Terminal.geometry[0];
-            win.rows = Terminal.geometry[1];
+            //TODO
+            var x = Math.floor($(window).width() / 6.8);
+            var y = Math.floor($(window).height() / 8.9);
+            win.cols = x || Terminal.geometry[0];
+            win.rows = y || Terminal.geometry[1];
 
             $self.append($bar);
             $bar.append($title);
@@ -44,6 +68,7 @@
                 $title.text(data.process);
                 term.emit("open tab", term);
                 term.emit("open");
+                term.updateSize();
             });
 
             // Listen for connect
@@ -68,11 +93,11 @@
                 term.socket.emit("data", term.id, data);
             });
 
-
             win.bind();
 
             term.emit("load");
             term.emit("open");
+
         }
 
         // Open the terminal
