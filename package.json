@@ -1,22 +1,40 @@
 {
-  "name": "tty.js",
-  "description": "A terminal for your browser",
-  "author": "Christopher Jeffrey",
-  "version": "0.2.13",
-  "main": "./index.js",
-  "bin": "./bin/tty.js",
-  "man": "./man/tty.js.1",
-  "preferGlobal": false,
-  "repository": "git://github.com/chjj/tty.js.git",
-  "homepage": "https://github.com/chjj/tty.js",
-  "bugs": { "url": "https://github.com/chjj/tty.js/issues" },
-  "keywords": ["tty", "terminal", "term", "xterm"],
-  "tags": ["tty", "terminal", "term", "xterm"],
-  "dependencies": {
-    "express": "3.4.4",
-    "socket.io": "0.9.16",
-    "pty.js": "0.2.4",
-    "term.js": "0.0.3"
+  "name": "browser-term",
+  "version": "1.0.0-alpha",
+  "description": "A full screen terminal in your browser.",
+  "main": "index.js",
+  "bin": {
+    "browser-term": "tty.js"
   },
-  "engines": { "node": ">= 0.8.0" }
+  "directories": {
+    "man": "man"
+  },
+  "dependencies": {
+    "express": "^3.4.4",
+    "term.js": "^0.0.3",
+    "pty.js": "^0.2.4",
+    "socket.io": "^0.9.16"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IonicaBizau/browser-terminal.git"
+  },
+  "keywords": [
+    "browser",
+    "terminal"
+  ],
+  "author": "Christopher Jeffrey",
+  "constributors": [
+      "Ionică Bizău <bizauionica@gmail.com> http://ionicabizau.net",
+      "jilli <contact@jillix.com> http://jillix.net",
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IonicaBizau/browser-terminal/issues"
+  },
+  "homepage": "https://github.com/IonicaBizau/browser-terminal"
 }
