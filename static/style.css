@@ -18,14 +18,6 @@ html {
   background: #fff;
 }
 
-html.dark {
-  background: #333;
-}
-
-html.maximized {
-  overflow: hidden;
-}
-
 body {
   margin: 25px;
 }
@@ -41,7 +33,7 @@ body {
  * Terminal
  */
 
-.window {
+.tty-window {
   padding-top: 15px;
   border: #fafafa solid 1px;
   background: #272829;
@@ -50,15 +42,6 @@ body {
   left: 20px;
   z-index: 1000;
   box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 20px;
-}
-
-.maximized .window {
-  border: none;
-  box-shadow: none;
-}
-
-.dark .window {
-  box-shadow: none;
 }
 
 .bar {
