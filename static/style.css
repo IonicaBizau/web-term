@@ -14,7 +14,7 @@ html {
 }
 
 body {
-  margin: 25px;
+    overflow: hidden;
 }
 
 /* Only allow plaintext?
@@ -49,6 +49,7 @@ body {
   padding: 1px 0;
   font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
   color: #fafafa;
+  display: none;
 }
 
 .title {
@@ -72,10 +73,14 @@ body {
 }
 
 .terminal {
-  border: #000 solid 5px;
-  font-family: Monaco, "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-family: monospace;
   font-size: 11px;
   color: #f0f0f0;
   background: #000;
+  padding: 10px 6px;
 }
 
+.reverse-video {
+  color: #000;
+  background: #f0f0f0;
+}
