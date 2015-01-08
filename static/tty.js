@@ -62,7 +62,7 @@
             });
 
 
-            tab.open();
+            tab.open(win.$.get(0));
             tab.focus();
             tab.on("data", function (data) {
                 term.socket.emit("data", term.id, data);
