@@ -16,7 +16,7 @@
 
             win.bind = function () {
                 win.$.on("mousedown", function(ev) {
-                    win.focus();
+                    term.tab.focus();
                 });
             };
 
