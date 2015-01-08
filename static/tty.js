@@ -47,7 +47,7 @@
 
             //TODO
             var x = Math.floor($(window).width() / 6.8);
-            var y = Math.floor($(window).height() / 8.9);
+            var y = Math.floor($(window).height() / 13.25);
             win.cols = x || Terminal.geometry[0];
             win.rows = y || Terminal.geometry[1];
 
