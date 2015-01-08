@@ -80,11 +80,7 @@ tty.open = function() {
   open = tty.elements.open;
   lights = tty.elements.lights;
 
-  if (open) {
-    on(open, 'click', function() {
-      new Window;
-    });
-  }
+  new Window(".container");
 
   if (lights) {
     on(lights, 'click', function() {
@@ -93,7 +89,6 @@ tty.open = function() {
   }
 
   tty.socket.on('connect', function() {
-    tty.reset();
     tty.emit('connect');
   });
 
@@ -196,7 +191,7 @@ tty.toggleLights = function() {
  * Window
  */
 
-function Window(socket) {
+function Window(selector) {
   var self = this;
 
   EventEmitter.call(this);
@@ -207,7 +202,11 @@ function Window(socket) {
     , button
     , title;
 
-  el = document.createElement('div');
+  if (!selector) {
+      el = document.createElement('div');
+  } else {
+      el = document.querySelector(selector);
+  }
   el.className = 'window';
 
   grip = document.createElement('div');
@@ -225,7 +224,7 @@ function Window(socket) {
   title.className = 'title';
   title.innerHTML = '';
 
-  this.socket = socket || tty.socket;
+  this.socket = tty.socket;
   this.element = el;
   this.grip = grip;
   this.bar = bar;
@@ -885,23 +884,6 @@ function sanitize(text) {
   if (!text) return '';
   return (text + '').replace(/[&<>]/g, '')
 }
-
-/**
- * Load
- */
-
-function load() {
-  if (load.done) return;
-  load.done = true;
-
-  off(document, 'load', load);
-  off(document, 'DOMContentLoaded', load);
-  tty.open();
-}
-
-on(document, 'load', load);
-on(document, 'DOMContentLoaded', load);
-setTimeout(load, 200);
 
 /**
  * Expose
