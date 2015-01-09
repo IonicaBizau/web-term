@@ -63,8 +63,6 @@
             // Create the terminal
             term.socket.emit("create", win.cols, win.rows, function(err, data) {
                 if (err) return self._destroy();
-                term.pty = data.pty;
-                term.id = data.id;
                 $title.text(data.process);
                 term.emit("open tab", term);
                 term.emit("open");
@@ -77,12 +75,12 @@
             });
 
             // Listen for data
-            term.socket.on("data", function(id, data) {
+            term.socket.on("data", function(data) {
                 tab.write(data);
             });
 
             // Listen for kill event
-            term.socket.on("kill", function(id) {
+            term.socket.on("kill", function() {
                 term._destroy();
             });
 
@@ -90,14 +88,13 @@
             tab.open(win.$.get(0));
             tab.focus();
             tab.on("data", function (data) {
-                term.socket.emit("data", term.id, data);
+                term.socket.emit("data", data);
             });
 
             win.bind();
 
             term.emit("load");
             term.emit("open");
-
         }
 
         // Open the terminal
