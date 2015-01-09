@@ -11,6 +11,11 @@ var Lien = require("lien")
 var app = new Lien({
     host: "localhost"
   , port: 9000
+  , root: __dirname + "/public"
+});
+
+app.page.add("/", function (lien) {
+    lien.file("index.html");
 });
 
 // Init Socket.IO
