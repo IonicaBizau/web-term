@@ -10,10 +10,10 @@
     "man": "man"
   },
   "dependencies": {
-    "express": "^3.4.4",
-    "term.js": "^0.0.3",
-    "pty.js": "^0.2.4",
-    "socket.io": "^0.9.16"
+    "lien": "0.0.7",
+    "term.js": "0.0.3",
+    "pty.js": "0.2.4",
+    "ws": "0.6.5"
   },
   "devDependencies": {},
   "scripts": {
