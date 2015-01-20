@@ -1,5 +1,24 @@
 (function ($) {
     var EventEmitter = Terminal.EventEmitter;
+    $.fn.textSize = function () {
+        var $self = this;
+        function getCharWidth() {
+            var canvas = getCharWidth.canvas || (getCharWidth.canvas = $("<canvas>")[0])
+              , context = canvas.getContext("2d")
+              ;
+
+            context.font = [$self.css("font-size"), $self.css("font-family")].join(" ");
+            var metrics = context.measureText("3");
+            return metrics.width;
+        };
+
+        var lineHeight = parseFloat(getComputedStyle($self[0]).lineHeight);
+        return {
+            x: Math.floor($self.width() / getCharWidth())
+          , y: Math.floor($self.height() / lineHeight)
+        };
+    };
+
     $.fn.tty = function () {
         var $self = this;
         var term = new EventEmitter;
@@ -45,11 +64,9 @@
             var $button = $("<div>").addClass("grip");
             var $title = $("<div>").addClass("title");
 
-            //TODO
-            var x = Math.floor($(window).width() / 6.8);
-            var y = Math.floor($(window).height() / 13.25);
-            win.cols = x || Terminal.geometry[0];
-            win.rows = y || Terminal.geometry[1];
+            var tSize = $(".tty-window").textSize();
+            win.cols = tSize.x || Terminal.geometry[0];
+            win.rows = tSize.y || Terminal.geometry[1];
 
             $self.append($bar);
             $bar.append($title);
