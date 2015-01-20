@@ -23,10 +23,6 @@ app.io = SocketIO.listen(app._server, {
     log: false
 });
 
-app.io.configure(function() {
-    app.io.disable("log");
-});
-
 // Handle connections
 app.io.sockets.on("connection", function(socket) {
     var req = socket.handshake;

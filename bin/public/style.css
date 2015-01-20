@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:700);
+
 html, body {
   margin: 0;
   padding: 0;
@@ -46,7 +48,7 @@ body {
   right: 0;
   height: 13px;
   padding: 1px 0;
-  font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+  font-family: "Ubuntu Mono", monospace;
   color: #fafafa;
   display: none;
 }
@@ -72,11 +74,17 @@ body {
 }
 
 .terminal {
-  font-family: monospace;
+  font-family: "Ubuntu Mono", monospace;
   font-size: 11px;
+  line-height: 1;
   color: #f0f0f0;
-  background: #000;
-  padding: 10px 6px;
+  background: #1A1A1A !important;
+  /* padding: 10px 6px; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .reverse-video {
