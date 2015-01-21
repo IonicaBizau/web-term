@@ -25,17 +25,12 @@
         var inherits = Terminal.inherits;
 
         term.updateSize = function () {
-            //TODO
-            return;
-            var $terminal = $(".terminal", $self);
-            var x = Math.floor($terminal.width() / 6.6);
-            var y = Math.floor($terminal.height() / 5.539);
+            var tSize = $(".terminal").textSize();
+            term.w.cols = tSize.x || Terminal.geometry[0];
+            term.w.rows = tSize.y || Terminal.geometry[1];
 
-            term.w.cols = x;
-            term.w.rows = y;
-
-            term.socket.emit("resize", term.id, x, y);
-            //term.tab.resize(x, y);
+            term.socket.emit("resize", term.id, term.w.cols, term.w.rows);
+            term.tab.resize(term.w.cols, term.w.rows);
             term.tab.reset();
         };
 
@@ -63,10 +58,6 @@
             var $bar = $("<div>").addClass("bar");
             var $button = $("<div>").addClass("grip");
             var $title = $("<div>").addClass("title");
-
-            var tSize = $(".tty-window").textSize();
-            win.cols = tSize.x || Terminal.geometry[0];
-            win.rows = tSize.y || Terminal.geometry[1];
 
             $self.append($bar);
             $bar.append($title);
@@ -112,6 +103,9 @@
 
             term.emit("load");
             term.emit("open");
+            setTimeout(function() {
+            term.updateSize();
+            }, 0);
         }
 
         // Open the terminal
