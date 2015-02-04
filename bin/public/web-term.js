@@ -1,5 +1,7 @@
 (function ($) {
     var EventEmitter = Terminal.EventEmitter;
+
+    // Text size plugin
     $.fn.textSize = function () {
         var $self = this;
         function getCharWidth() {
@@ -19,6 +21,7 @@
         };
     };
 
+    // Web Term plugin
     $.fn.webTerm = function () {
         var $self = this;
         var term = new EventEmitter;
