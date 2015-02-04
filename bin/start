@@ -49,7 +49,7 @@ app.io.sockets.on("connection", function(socket) {
     });
 
     socket.on("disconnect", function() {
-        WebTerm.disconnect();
+        WebTerm.kill();
     });
 
     socket.on("request paste", function(callback) {
