@@ -48,10 +48,6 @@ app.io.sockets.on("connection", function(socket) {
         WebTerm.resize(cols, rows);
     });
 
-    socket.on("process", function(callback) {
-        WebTerm.process(callback);
-    });
-
     socket.on("disconnect", function() {
         WebTerm.disconnect();
     });
