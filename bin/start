@@ -2,7 +2,7 @@
 
 // Dependencies
 var Lien = require("lien")
-  , Tty = require(__dirname + "/../lib/tty.js")
+  , WebTerm = require(__dirname + "/../lib/tty.js")
   , Pty = require("pty.js")
   , SocketIO = require("socket.io")
   ;
@@ -29,7 +29,7 @@ app.io.sockets.on("connection", function(socket) {
     var user = req.user;
 
     socket.on("create", function(cols, rows, callback) {
-        Tty.create({
+        WebTerm.create({
             cols: cols
           , rows: rows
           , socket: socket
@@ -37,26 +37,26 @@ app.io.sockets.on("connection", function(socket) {
     });
 
     socket.on("data", function(data) {
-        Tty.data(data);
+        WebTerm.data(data);
     });
 
     socket.on("kill", function() {
-        Tty.kill();
+        WebTerm.kill();
     });
 
     socket.on("resize", function(cols, rows) {
-        Tty.resize(cols, rows);
+        WebTerm.resize(cols, rows);
     });
 
     socket.on("process", function(callback) {
-        Tty.process(callback);
+        WebTerm.process(callback);
     });
 
     socket.on("disconnect", function() {
-        Tty.disconnect();
+        WebTerm.disconnect();
     });
 
     socket.on("request paste", function(callback) {
-        Tty.paste(callback);
+        WebTerm.paste(callback);
     });
 });
