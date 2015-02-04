@@ -29,7 +29,7 @@ body {
 /**
  * Terminal
  */
-.tty-window {
+.webTerm-window {
   /* border: #fafafa solid 1px; */
   background: #272829;
   position: absolute;

@@ -19,7 +19,7 @@
         };
     };
 
-    $.fn.tty = function () {
+    $.fn.webTerm = function () {
         var $self = this;
         var term = new EventEmitter;
         var inherits = Terminal.inherits;
@@ -47,7 +47,7 @@
             /// Create the window
             var win = term.w = new EventEmitter;
             win.$ = $self;
-            win.$.addClass("tty-window");
+            win.$.addClass("webTerm-window");
 
             win.bind = function () {
                 win.$.on("mousedown", function(ev) {
@@ -114,5 +114,5 @@
 })($);
 
 $(document).ready(function() {
-    $(".container").tty();
+    $(".container").webTerm();
 });

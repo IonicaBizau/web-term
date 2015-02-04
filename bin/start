@@ -2,7 +2,7 @@
 
 // Dependencies
 var Lien = require("lien")
-  , WebTerm = require(__dirname + "/../lib/tty.js")
+  , WebTerm = require(__dirname + "/../lib/web-term.js")
   , Pty = require("pty.js")
   , SocketIO = require("socket.io")
   ;
