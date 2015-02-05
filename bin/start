@@ -5,7 +5,11 @@ var Lien = require("lien")
   , WebTerm = require(__dirname + "/../lib/web-term.js")
   , Pty = require("pty.js")
   , SocketIO = require("socket.io")
+  , Logger = require("bug-killer")
   ;
+
+// Logger config
+Logger.config.logLevel = 4;
 
 // Init the server
 var app = new Lien({
@@ -56,3 +60,5 @@ app.io.sockets.on("connection", function(socket) {
         WebTerm.paste(callback);
     });
 });
+
+Logger.log("Terminal available at: localhost:9000", "info");

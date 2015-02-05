@@ -1,21 +1,18 @@
 {
-  "name": "browser-term",
-  "version": "1.0.0-alpha",
+  "name": "webterm",
+  "version": "1.0.0",
   "description": "A full screen terminal in your browser.",
   "main": "index.js",
   "bin": {
-    "browser-term": "tty.js"
-  },
-  "directories": {
-    "man": "man"
+    "webterm": "./bin/start"
   },
   "dependencies": {
     "lien": "0.0.7",
     "term.js": "0.0.3",
     "pty.js": "0.2.4",
-    "socket.io": "1.3.0"
+    "socket.io": "1.3.0",
+    "bug-killer": "1.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./bin/start"
@@ -28,14 +25,15 @@
     "browser",
     "terminal"
   ],
-  "author": "Christopher Jeffrey",
+  "author": "Ionică Bizău <bizauionica@gmail.com>",
   "constributors": [
-      "Ionică Bizău <bizauionica@gmail.com> http://ionicabizau.net",
-      "jilli <contact@jillix.com> http://jillix.net"
+    "Ionică Bizău <bizauionica@gmail.com> http://ionicabizau.net",
+    "jillix <contact@jillix.com> http://jillix.net"
   ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/browser-terminal/issues"
   },
-  "homepage": "https://github.com/IonicaBizau/browser-terminal"
+  "homepage": "https://github.com/IonicaBizau/browser-terminal",
+  "devDependencies": {}
 }
