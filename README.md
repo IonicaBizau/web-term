@@ -1,29 +1,53 @@
-`$ web-term`
-================
-A full screen terminal in your browser.
+![](http://i.imgur.com/LtXIVf0.png)
+
+# `$ web-term`
+A fullscreen terminal in your browser.
 
 ## Installation
+Run the following commands to download and install the application:
 
 ```sh
-$ npm install -g web-term
+$ git clone https://github.com/IonicaBizau/browser-terminal.git web-term
+$ cd web-term
+$ npm install
 ```
 
-## Usage
+## Documentation
+### `create(options, callback)`
+Creates a new terminal instance.
 
-```sh
-$ web-term
-```
+#### Params
+- **Object** `options`: Creates a new terminal instance.
+- **Function** `callback`: The callback function.
 
-Then open `localhost:9000` in your browser. You will have full access to the
-terminal.
+#### Return
+- **WebTerm** The terminal instance.
 
-## Changelog
-See the [releases page](/releases).
+### `data(data)`
+Writes data in the `WebTerm` instance.
 
-## Credits
-This is a fork of the [tty.js](https://github.com/chjj/tty.js) project which is
-really cool. The difference is that this is a simplified version, with one
-single window and one tab, which is what I needed.
+#### Params
+- **Buffer** `data`: The buffer to write.
+
+### `kill()`
+Destroys the `WebTerm` instance.
+
+### `resize(cols, rows)`
+Resizes the terminal.
+
+#### Params
+- **Number** `cols`: The number of columns.
+- **Number** `rows`: The number of rows.
+
+## How to contribute
+1. File an issue in the repository, using the bug tracker, describing the
+   contribution you'd like to make. This will help us to get you started on the
+   right foot.
+2. Fork the project in your account and create a new branch:
+   `your-great-feature`.
+3. Commit your changes in that branch.
+4. Open a pull request, and reference the initial issue in the pull request
+   message.
 
 ## License
-See the [LICENSE](/LICENSE) file.
+See the [LICENSE](./LICENSE) file.
