@@ -7,7 +7,7 @@ div {
   border: 0;
   padding: 0;
   margin: 0 0 0 0;
-  padding-bottom: 1.7px;
+  padding-bottom: 1.5px;
 }
 
 html {
@@ -28,18 +28,6 @@ body {
 /**
  * Terminal
  */
-.webTerm-window {
-  /* border: #fafafa solid 1px; */
-  background: #272829;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  box-shadow: rgba(0, 0, 0, 0.8) 2px 2px 20px;
-  bottom: 0;
-  right: 0;
-}
-
 .terminal {
   font-family: monospace;
   font-size: 11px;
@@ -52,6 +40,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
+  -webkit-transform: scale(1.03);
+  -webkit-transform-origin: 0 0;
 }
 
 .reverse-video {
