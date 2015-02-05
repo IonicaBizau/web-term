@@ -13,6 +13,14 @@ $ npm install -g web-term
 ## Usage
 Run `web-term` and then open `localhost:9000` in your web browser.
 
+## Screenshots
+
+### VIM
+![](http://i.imgur.com/49FTpfI.png)
+
+### Alsamixer
+![](http://i.imgur.com/rJbtLdi.jpg)
+
 ## Documentation
 ### `create(options, callback)`
 Creates a new terminal instance.
