@@ -1,4 +1,4 @@
-![](http://i.imgur.com/LtXIVf0.png)
+![](http://i.imgur.com/3kMJhvc.png)
 
 # `$ web-term`
 A fullscreen terminal in your browser.
