@@ -1,17 +1,17 @@
-`$ browser-term`
+`$ web-term`
 ================
 A full screen terminal in your browser.
 
 ## Installation
 
 ```sh
-$ npm install -g browser-term
+$ npm install -g web-term
 ```
 
 ## Usage
 
 ```sh
-$ browser-term
+$ web-term
 ```
 
 Then open `localhost:9000` in your browser. You will have full access to the

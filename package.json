@@ -1,10 +1,10 @@
 {
-  "name": "webterm",
+  "name": "web-term",
   "version": "1.0.0",
   "description": "A full screen terminal in your browser.",
   "main": "index.js",
   "bin": {
-    "webterm": "./bin/start"
+    "web-term": "./bin/start"
   },
   "dependencies": {
     "lien": "0.0.7",
