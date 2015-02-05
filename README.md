@@ -7,9 +7,7 @@ A fullscreen terminal in your browser.
 Run the following commands to download and install the application:
 
 ```sh
-$ git clone https://github.com/IonicaBizau/browser-terminal.git web-term
-$ cd web-term
-$ npm install
+$ npm install -g web-term
 ```
 
 ## Documentation
