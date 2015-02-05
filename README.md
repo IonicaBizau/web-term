@@ -21,6 +21,9 @@ Run `web-term` and then open `localhost:9000` in your web browser.
 ### Alsamixer
 ![](http://i.imgur.com/rJbtLdi.jpg)
 
+## Thanks
+This project is highly based on [`tty.js`](https://github.com/chjj/tty.js) created by [@chjj](https://github.com/chjj). Thanks a lot for this awesome stuff!
+
 ## Documentation
 ### `create(options, callback)`
 Creates a new terminal instance.
