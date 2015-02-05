@@ -10,6 +10,9 @@ Run the following commands to download and install the application:
 $ npm install -g web-term
 ```
 
+## Usage
+Run `web-term` and then open `localhost:9000` in your web browser.
+
 ## Documentation
 ### `create(options, callback)`
 Creates a new terminal instance.
