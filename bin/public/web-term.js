@@ -37,15 +37,12 @@
 
             term.socket.emit("resize", term.w.cols, term.w.rows);
             term.tab.resize(term.w.cols, term.w.rows);
-            setTimeout(function() {
-//            term.tab.reset();
-            }, 100);
         };
 
         var _resizeTimer = null;
         $(window).on("resize", function () {
             clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(term.updateSize, 500);
+            _resizeTimer = setTimeout(term.updateSize, 100);
         });
 
         function openTerm() {
@@ -111,9 +108,7 @@
 
             term.emit("load");
             term.emit("open");
-            setTimeout(function() {
             term.updateSize();
-            }, 0);
         }
 
         // Open the terminal
