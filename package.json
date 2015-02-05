@@ -2,7 +2,7 @@
   "name": "web-term",
   "version": "1.0.0",
   "description": "A full screen terminal in your browser.",
-  "main": "index.js",
+  "main": "lib/index.js",
   "bin": {
     "web-term": "./bin/start"
   },
