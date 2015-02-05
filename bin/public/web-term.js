@@ -4,20 +4,23 @@
     // Text size plugin
     $.fn.textSize = function () {
         var $self = this;
-        function getCharWidth() {
-            var canvas = getCharWidth.canvas || (getCharWidth.canvas = $("<canvas>")[0])
-              , context = canvas.getContext("2d")
-              ;
 
-            context.font = [$self.css("font-size"), $self.css("font-family")].join(" ");
-            var metrics = context.measureText("3");
-            return metrics.width;
+        function getCharSize() {
+            var $span = $("<span>", { text: "foo" });
+            $self.children().first().append($span);
+            var size = {
+                width: $span.outerWidth() / 3
+              , height: $span.outerHeight()
+            };
+            $span.remove();
+            return size;
         };
 
-        var lineHeight = parseFloat(getComputedStyle($self[0]).lineHeight);
+        var charSize = getCharSize();
+
         return {
-            x: Math.floor($self.width() / getCharWidth())
-          , y: Math.floor($self.height() / lineHeight)
+            x: Math.floor($self.width() / charSize.width)
+          , y: Math.floor($self.height() / charSize.height)
         };
     };
 
@@ -32,9 +35,11 @@
             term.w.cols = tSize.x || Terminal.geometry[0];
             term.w.rows = tSize.y || Terminal.geometry[1];
 
-            term.socket.emit("resize", term.id, term.w.cols, term.w.rows);
+            term.socket.emit("resize", term.w.cols, term.w.rows);
             term.tab.resize(term.w.cols, term.w.rows);
-            term.tab.reset();
+            setTimeout(function() {
+//            term.tab.reset();
+            }, 100);
         };
 
         var _resizeTimer = null;
@@ -92,7 +97,7 @@
 
             // Listen for kill event
             term.socket.on("kill", function() {
-                term._destroy();
+                window.close()
             });
 
 
