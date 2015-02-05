@@ -1,0 +1,64 @@
+#!/usr/bin/env node
+
+// Dependencies
+var Lien = require("lien")
+  , WebTerm = require(__dirname + "/../lib")
+  , Pty = require("pty.js")
+  , SocketIO = require("socket.io")
+  , Logger = require("bug-killer")
+  ;
+
+// Logger config
+Logger.config.logLevel = 4;
+
+// Init the server
+var app = new Lien({
+    host: "localhost"
+  , port: 9000
+  , root: __dirname + "/public"
+});
+
+app.page.add("/", function (lien) {
+    lien.file("index.html");
+});
+
+// Init Socket.IO
+app.io = SocketIO.listen(app._server, {
+    log: false
+});
+
+// Handle connections
+app.io.sockets.on("connection", function(socket) {
+    var req = socket.handshake;
+    var user = req.user;
+
+    socket.on("create", function(cols, rows, callback) {
+        WebTerm.create({
+            cols: cols
+          , rows: rows
+          , socket: socket
+        }, callback);
+    });
+
+    socket.on("data", function(data) {
+        WebTerm.data(data);
+    });
+
+    socket.on("kill", function() {
+        WebTerm.kill();
+    });
+
+    socket.on("resize", function(cols, rows) {
+        WebTerm.resize(cols, rows);
+    });
+
+    socket.on("disconnect", function() {
+        WebTerm.kill();
+    });
+
+    socket.on("request paste", function(callback) {
+        WebTerm.paste(callback);
+    });
+});
+
+Logger.log("Terminal available at: localhost:9000", "info");

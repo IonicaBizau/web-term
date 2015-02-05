@@ -1,28 +1,40 @@
 {
-  "name": "johnnys-terminal",
-  "version": "v0.1.0",
-  "description": "A NodeJS based terminal that runs in browser as a local server.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name": "web-term",
+  "version": "1.0.0",
+  "description": "A full screen terminal in your browser.",
+  "main": "lib/index.js",
+  "bin": {
+    "web-term": "./bin/start"
   },
   "dependencies": {
-      "tty.js": "*"
+    "lien": "0.0.7",
+    "term.js": "0.0.3",
+    "pty.js": "0.2.4",
+    "socket.io": "1.3.0",
+    "bug-killer": "1.0.0"
   },
-  "bin": {
-    "johnnys-terminal": "./bin/johnnys-terminal"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/start"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/IonicaBizau/browser-terminal.git"
+    "url": "https://github.com/IonicaBizau/browser-terminal.git"
   },
   "keywords": [
-    "terminal",
-    "browser"
+    "browser",
+    "terminal"
   ],
   "author": "Ionică Bizău <bizauionica@gmail.com>",
+  "constributors": [
+    "Christopher Jeffrey <chjjeffrey@gmail.com> https://twitter.com/_chjj",
+    "Ionică Bizău <bizauionica@gmail.com> http://ionicabizau.net",
+    "jillix <contact@jillix.com> http://jillix.net"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/browser-terminal/issues"
-  }
+  },
+  "homepage": "https://github.com/IonicaBizau/browser-terminal",
+  "devDependencies": {}
 }
