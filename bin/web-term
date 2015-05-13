@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-// ;
+// Dependencies
 var Lien = require("lien")
   , WebTerm = require(__dirname + "/../lib")
   , Pty = require("pty.js")
@@ -8,6 +8,7 @@ var Lien = require("lien")
   , Logger = require("bug-killer")
   , Clp = require("clp")
   , Package = require("../package")
+  , Path = require("path")
   ;
 
 
@@ -21,7 +22,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
   , parser = new Clp({
         name: "Web Term"
-      , version: "v1.0"
+      , version: Package.version
       , process: true
       , exe: Package.name
       , examples: [
@@ -35,13 +36,31 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
     }, [portOption, daemonOption])
   ;
 
+// Validate the port
+if (portOption.is_provided) {
+    portOption.value = parseInt(portOption.value);
+    if (isNaN(portOption.value)) {
+        return Logger.log("The provided port is invalid.", "error");
+    }
+}
+
+// Validate the CWD
+if (cwdOption.is_provided) {
+    cwdOption.value = Path.normalize(cwdOption.value);
+    if (!IsThere(cwdOption.value)) {
+        Logger.log("The provided CWD doesn't exist. Using the default cwd.", "warn");
+        cwdOption.value = null;
+    }
+}
+
 // Init the server
 var app = new Lien({
     host: "localhost"
-  , port: 9000
+  , port: portOption.value
   , root: __dirname + "/public"
 });
 
+// Add the route
 app.page.add("/", function (lien) {
     lien.file("index.html");
 });
@@ -61,6 +80,7 @@ app.io.sockets.on("connection", function(socket) {
             cols: cols
           , rows: rows
           , socket: socket
+          , cwd: cwdOption.value
         }, callback);
     });
 
@@ -85,4 +105,11 @@ app.io.sockets.on("connection", function(socket) {
     });
 });
 
-Logger.log("Terminal available at: localhost:9000", "info");
+// Listen for the server load
+app.on("load", function (err) {
+    var url = "http://localhost:" + portOption.value;
+    if (err) {
+        return Logger.log("Cannot start the server: " + err.toString(), "error");
+    }
+    Logger.log("Successfully started the web term server: " + url, "info");
+});
