@@ -1,6 +1,8 @@
 (function ($) {
     var EventEmitter = Terminal.EventEmitter;
 
+    blm("Do you really want to leave? You will lose this terminal session.");
+
     // Text size plugin
     $.fn.textSize = function () {
         var $self = this;
