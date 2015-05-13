@@ -1,15 +1,39 @@
 #!/usr/bin/env node
 
-// Dependencies
+// ;
 var Lien = require("lien")
   , WebTerm = require(__dirname + "/../lib")
   , Pty = require("pty.js")
   , SocketIO = require("socket.io")
   , Logger = require("bug-killer")
+  , Clp = require("clp")
+  , Package = require("../package")
   ;
+
 
 // Logger config
 Logger.config.logLevel = 4;
+
+// Create options and add them
+var portOption = new Clp.Option(["p", "port"], "The web term server port.", "port", 9000)
+  , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as backgroudn process.")
+  , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
+  , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
+  , parser = new Clp({
+        name: "Web Term"
+      , version: "v1.0"
+      , process: true
+      , exe: Package.name
+      , examples: [
+            "web-term # Default behavior"
+          , "web-term -p 8080 # start on localhost:8080"
+          , "web-term -d # daemonize"
+          , "web-term -c path/to/some/dir"
+          , "web-term -o # Opens the web-term in browser"
+        ]
+      , docs_url: "https://github.com/IonicaBizau/web-term"
+    }, [portOption, daemonOption])
+  ;
 
 // Init the server
 var app = new Lien({
