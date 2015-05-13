@@ -4,7 +4,7 @@
   "description": "A full screen terminal in your browser.",
   "main": "lib/index.js",
   "bin": {
-    "web-term": "./bin/start"
+    "web-term": "./bin/web-term"
   },
   "dependencies": {
     "lien": "0.0.7",
