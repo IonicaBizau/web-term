@@ -7,10 +7,10 @@
     "web-term": "./bin/web-term"
   },
   "dependencies": {
-    "lien": "0.0.7",
-    "term.js": "0.0.3",
-    "pty.js": "0.2.6",
-    "socket.io": "1.3.0",
+    "lien": "0.0.8",
+    "term.js": "0.0.4",
+    "pty.js": "0.2.7-1",
+    "socket.io": "1.3.5",
     "bug-killer": "1.0.0"
   },
   "scripts": {
