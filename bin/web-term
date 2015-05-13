@@ -9,6 +9,7 @@ var Lien = require("lien")
   , Clp = require("clp")
   , Package = require("../package")
   , Path = require("path")
+  , IsThere = require("is-there")
   ;
 
 
@@ -33,7 +34,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
           , "web-term -o # Opens the web-term in browser"
         ]
       , docs_url: "https://github.com/IonicaBizau/web-term"
-    }, [portOption, daemonOption])
+    }, [portOption, daemonOption, cwdOption, openOption])
   ;
 
 // Validate the port
