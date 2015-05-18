@@ -11,7 +11,7 @@ var Lien = require("lien")
   , Path = require("path")
   , IsThere = require("is-there")
   , Diable = require("diable")
-  , Open = require("open")
+  , Open = require("opn")
   ;
 
 // Logger config
