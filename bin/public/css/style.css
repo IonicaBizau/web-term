@@ -7,6 +7,8 @@ div {
 div.terminal > div {
     padding-bottom: 0.8px;
     white-space: nowrap;
+    font-family: "Monaco", monospace;
+    font-weight: bold;
 }
 
 .terminal {
