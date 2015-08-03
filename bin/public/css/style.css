@@ -5,7 +5,6 @@ div {
 }
 
 div.terminal > div {
-    padding-bottom: 0.8px;
     white-space: nowrap;
     font-family: "Monaco", monospace;
     font-weight: bold;
@@ -14,7 +13,6 @@ div.terminal > div {
 .terminal {
     font-family: monospace;
     font-size: 11px;
-    line-height: 1;
     color: #f0f0f0;
     background: #1A1A1A !important;
     position: fixed;
