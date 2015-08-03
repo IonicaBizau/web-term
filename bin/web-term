@@ -14,9 +14,6 @@ var Lien = require("lien")
   , Open = require("opn")
   ;
 
-// Logger config
-Logger.config.logLevel = 4;
-
 // Create options and add them
 var portOption = new Clp.Option(["p", "port"], "The web term server port.", "port", 9000)
   , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
@@ -41,8 +38,8 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
 
 // Daemonize the process
 if (!Diable.isDaemon() && daemonOption.is_provided) {
-    Logger.log("Starting as daemon.", "info");
-    Logger.log("process id:" + Diable({ args: process.argv.slice(2), exit: false }).pid, "info");
+    Logger.log("Starting as daemon.");
+    Logger.log("process id:" + Diable({ args: process.argv.slice(2), exit: false }).pid);
     return setTimeout(process.exit, 1000);
 }
 
@@ -121,7 +118,7 @@ app.on("load", function (err) {
     if (err) {
         return Logger.log("Cannot start the server: " + err.toString(), "error");
     }
-    Logger.log("Successfully started the web term server: " + url, "info");
+    Logger.log("Successfully started the web term server: " + url);
     if (openOption.is_provided) {
         Open(url);
     }
