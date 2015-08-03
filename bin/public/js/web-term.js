@@ -7,22 +7,40 @@
     $.fn.textSize = function () {
         var $self = this;
 
-        function getCharSize() {
-            var $span = $("<span>", { text: "foo" });
-            $self.children().first().append($span);
-            var size = {
-                width: $span.outerWidth() / 3
-              , height: $span.outerHeight()
-            };
-            $span.remove();
-            return size;
-        };
+        var span = document.createElement("span");
+        var newContent = document.createTextNode("o");
 
-        var charSize = getCharSize();
+        function getOuterDimensions (elementDOM) {
+            var width,
+            height;
+            var boundingBox = elementDOM.getBoundingClientRect();
+
+            // Get the width and height without margins
+            width = boundingBox.width;
+            height = boundingBox.height;
+
+            // Add margins to the width and height
+            var computed = getComputedStyle(elementDOM);
+            width = width + parseInt(computed.marginRight) + parseInt(computed.marginLeft);
+            height = height + parseInt(computed.marginTop) + parseInt(computed.marginBottom);
+
+            return {
+                width: width,
+                height: height
+            }
+        }
+
+        span.appendChild(newContent);
+        $self.get(0).children[0].appendChild(span)
+
+        var charSize = getOuterDimensions(span);
+        var targetSize = getOuterDimensions($self.get(0));
+
+        span.remove();
 
         return {
-            x: Math.floor($self.width() / charSize.width)
-          , y: Math.floor($self.height() / charSize.height)
+            x: Math.floor(targetSize.width / charSize.width)
+          , y: Math.floor(targetSize.height / charSize.height)
         };
     };
 
