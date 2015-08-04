@@ -34,6 +34,38 @@ $ npm i -g web-term
 
 Then, run `web-term --help` and see what the cli tool can do.
 
+## Usage
+Run `web-term` and then open `localhost:9000` in your web browser. If you want to configure the things, run `web-term -h`
+and see what are the available options.
+
+In short:
+
+ - `-d` Starts `web-term` as daemon (e.g. `web-term -d`)
+ - `-p <port>` Sets a different port (e.g. `web-term -p 5000`)
+ - `-o` Opens the `web-term` page in the default browser.
+ - `-c <cwd>` Specifies the current working directory.
+
+Sure, they can be combined:
+
+```sh
+# The following command will start web-term as daemon
+# on localhost:5000, with the current working directory
+# set to ~/Documents and after the process is started,
+# the web-term page will be opened in browser.
+$ web-term -d -p 5000 -c ~/Documents -o
+```
+
+## Screenshots
+
+### VIM
+![](http://i.imgur.com/49FTpfI.png)
+
+### Alsamixer
+![](http://i.imgur.com/rJbtLdi.jpg)
+
+## Thanks
+This project is highly based on [`tty.js`](https://github.com/chjj/tty.js) created by [@chjj](https://github.com/chjj). Thanks a lot for this awesome stuff!
+
 ## Documentation
 
 For full API reference, see the [DOCUMENTATION.md][docs] file.
