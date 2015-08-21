@@ -102,28 +102,28 @@ app.io.sockets.on("connection", function(socket) {
     });*/
 
     socket.on("data", function(data) {
-        //WebTerm.data(data);
-        terminal.data(data);
+        WebTerm.data(data);
+        //terminal.data(data);
     });
 
     socket.on("kill", function() {
-        //WebTerm.kill();
-        terminal.kill();
+        WebTerm.kill();
+        //terminal.kill();
     });
 
     socket.on("resize", function(cols, rows) {
-        //WebTerm.resize(cols, rows);
-        terminal.resize(cols, rows);
+        WebTerm.resize(cols, rows);
+        //terminal.resize(cols, rows);
     });
 
     socket.on("disconnect", function() {
-        //WebTerm.kill();
-        terminal.kill();
+        WebTerm.kill();
+        //terminal.kill();
     });
 
     socket.on("request paste", function(callback) {
-        //WebTerm.paste(callback);
-        terminal.paste(callback);
+        WebTerm.paste(callback);
+        //terminal.paste(callback);
     });
 });
 
