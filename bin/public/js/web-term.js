@@ -139,4 +139,5 @@
 $(document).ready(function() {
     $(".container-term").webTerm();
     $(".container-term2").webTerm.create();
+    //  $(".container-term2").terminal.create();
 });
