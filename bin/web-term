@@ -69,9 +69,9 @@ var app = new Lien({
 });
 
 // Add the route
-app.page.add("/", function (lien) {
-    lien.file("index.html");
-});
+app.page.add("/", "index.html");
+app.page.add("/vs", "vertical-split.html");
+app.page.add("/hs", "horizontal-split.html");
 
 // Init Socket.IO
 app.io = SocketIO.listen(app._server, {
