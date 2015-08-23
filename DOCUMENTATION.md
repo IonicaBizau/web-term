@@ -7,12 +7,15 @@ Creates a new `WebTerm` instance.
 #### Return
 - **WebTerm** The `WebTerm` instance.
 
-### `create(options, callback)`
+### `create(options)`
 Creates a new terminal instance.
 
 #### Params
-- **Object** `options`: Creates a new terminal instance.
-- **Function** `callback`: The callback function.
+- **Object** `options`: Creates a new terminal instance:
+ - `cols` (Number): The number of columns.
+ - `rows` (Number): The number of rows.
+ - `cwd` (String): The current working directory (default: the home directory).
+ - `start` (String): The start program (by default the shell).
 
 #### Return
 - **Terminal** The terminal instance.
