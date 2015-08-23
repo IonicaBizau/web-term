@@ -82,48 +82,42 @@ app.io.sockets.on("connection", function(socket) {
     var req = socket.handshake;
     var user = req.user;
 
+    // One terminal per web-socket
     var terminal = null;
 
     socket.on("create", function(cols, rows, callback) {
         terminal = new WebTerm({
           cols: cols
         , rows: rows
-        , socket: socket
         , cwd: cwdOption.value || process.cwd()
+        , socket: socket
       }, callback);
     });
-        /*WebTerm.create({
-            cols: cols
-          , rows: rows
-          , socket: socket
-          , cwd: cwdOption.value || process.cwd()
-        }, callback);
-
-    });*/
 
     socket.on("data", function(data) {
-        WebTerm.data(data);
-        //terminal.data(data);
+        if (!terminal) { return; }
+        terminal.data(data);
     });
 
     socket.on("kill", function() {
-        WebTerm.kill();
-        //terminal.kill();
+        if (!terminal) { return; }
+        terminal.kill();
     });
 
     socket.on("resize", function(cols, rows) {
-        WebTerm.resize(cols, rows);
-        //terminal.resize(cols, rows);
+        if (!terminal) { return; }
+        terminal.resize(cols, rows);
     });
 
     socket.on("disconnect", function() {
-        WebTerm.kill();
-        //terminal.kill();
+        if (!terminal) { return; }
+        terminal.kill();
+        terminal = null;
     });
 
     socket.on("request paste", function(callback) {
-        WebTerm.paste(callback);
-        //terminal.paste(callback);
+        if (!terminal) { return; }
+        terminal.paste(callback);
     });
 });
 

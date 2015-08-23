@@ -1,7 +1,7 @@
 (function ($) {
     var EventEmitter = Terminal.EventEmitter;
 
-    //blm("Do you really want to leave? You will lose this terminal session.");
+    blm("Do you really want to leave? You will lose this terminal session.");
 
     // Text size plugin
     $.fn.textSize = function () {
@@ -137,7 +137,5 @@
 })($);
 
 $(document).ready(function() {
-    $(".container-term").webTerm();
-    $(".container-term2").webTerm.create();
-    //  $(".container-term2").terminal.create();
+    $(".container").webTerm();
 });
