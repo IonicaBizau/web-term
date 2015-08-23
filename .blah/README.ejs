@@ -67,21 +67,30 @@ Then, run `<%- _.pack.name %> --help` and see what the cli tool can do.
 Run `web-term` and then open `localhost:9000` in your web browser. If you want to configure the things, run `web-term -h`
 and see what are the available options.
 
-In short:
-
- - `-d` Starts `web-term` as daemon (e.g. `web-term -d`)
- - `-p <port>` Sets a different port (e.g. `web-term -p 5000`)
- - `-o` Opens the `web-term` page in the default browser.
- - `-c <cwd>` Specifies the current working directory.
-
-Sure, they can be combined:
-
 ```sh
-# The following command will start web-term as daemon
-# on localhost:5000, with the current working directory
-# set to ~/Documents and after the process is started,
-# the web-term page will be opened in browser.
-$ web-term -d -p 5000 -c ~/Documents -o
+$ ./bin/web-term -h
+Usage: web-term [options]
+
+Options:
+  -p, --port <port>      The web term server port.
+  -d, --daemon           Start web term as background process.
+  -c, --cwd <path>       The path to the web terminal current working
+                         directory.
+  -o, --open             If provided, the web term will be automatically
+                         opened in the default browser.
+  -s, --start <program>  The start program. By default the current shell.
+  -h, --help             Displays this help.
+  -v, --version          Displays version information.
+
+Examples:
+  web-term # Default behavior
+  web-term -p 8080 # start on localhost:8080
+  web-term -d # daemonize
+  web-term -c path/to/some/dir
+  web-term -o # Opens the web-term in the browser
+  web-term -s alsamixer # Opens alsamixer in the browser
+
+Documentation can be found at https://github.com/IonicaBizau/web-term
 ```
 
 ## Screenshots
