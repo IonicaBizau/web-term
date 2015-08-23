@@ -19,6 +19,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
   , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
   , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
+  , startOption = new Clp.Option(["s", "start"], "The start program. By default the current shell.", "program", "bash")
   , parser = new Clp({
         name: "Web Term"
       , version: Package.version
@@ -32,7 +33,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
           , "web-term -o # Opens the web-term in browser"
         ]
       , docs_url: "https://github.com/IonicaBizau/web-term"
-    }, [portOption, daemonOption, cwdOption, openOption])
+    }, [portOption, daemonOption, cwdOption, openOption, startOption])
   ;
 
 
@@ -87,11 +88,13 @@ app.io.sockets.on("connection", function(socket) {
 
     socket.on("create", function(cols, rows, callback) {
         terminal = new WebTerm({
-          cols: cols
-        , rows: rows
-        , cwd: cwdOption.value || process.cwd()
-        , socket: socket
-      }, callback);
+            cols: cols
+          , rows: rows
+          , cwd: cwdOption.value || process.cwd()
+          , socket: socket
+          , start: startOption.value
+        });
+        callback();
     });
 
     socket.on("data", function(data) {
