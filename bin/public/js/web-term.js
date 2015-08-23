@@ -96,7 +96,6 @@
             // Create the terminal
             term.socket.emit("create", win.cols, win.rows, function(err, data) {
                 if (err) return self._destroy();
-                $title.text(data.process);
                 term.emit("open tab", term);
                 term.emit("open");
                 term.updateSize();
