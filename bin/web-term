@@ -30,7 +30,8 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
           , "web-term -p 8080 # start on localhost:8080"
           , "web-term -d # daemonize"
           , "web-term -c path/to/some/dir"
-          , "web-term -o # Opens the web-term in browser"
+          , "web-term -o # Opens the web-term in the browser"
+          , "web-term -s alsamixer # Opens alsamixer in the browser"
         ]
       , docs_url: "https://github.com/IonicaBizau/web-term"
     }, [portOption, daemonOption, cwdOption, openOption, startOption])
