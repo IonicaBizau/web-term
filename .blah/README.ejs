@@ -68,7 +68,7 @@ Run `web-term` and then open `localhost:9000` in your web browser. If you want t
 and see what are the available options.
 
 ```sh
-$ ./bin/web-term -h
+$ web-term -h
 Usage: web-term [options]
 
 Options:
@@ -78,7 +78,8 @@ Options:
                          directory.
   -o, --open             If provided, the web term will be automatically
                          opened in the default browser.
-  -s, --start <program>  The start program. By default the current shell.
+  -b, --shell <program>  The shell program. By default `bash`.
+  -s, --start <program>  The start program.
   -h, --help             Displays this help.
   -v, --version          Displays version information.
 
