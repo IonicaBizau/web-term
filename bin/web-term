@@ -42,7 +42,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
 if (!Diable.isDaemon() && daemonOption.is_provided) {
     Logger.log("Starting as daemon.");
     Logger.log("process id:" + Diable({ args: process.argv.slice(2), exit: false }).pid);
-    return setTimeout(process.exit, 1000);
+    return;
 }
 
 // Validate the port
