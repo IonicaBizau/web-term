@@ -115,6 +115,54 @@ EventEmitter.prototype.listeners = function(type) {
 };
 
 /**
+ * Stream
+ */
+
+function Stream() {
+  EventEmitter.call(this);
+}
+
+inherits(Stream, EventEmitter);
+
+Stream.prototype.pipe = function(dest, options) {
+  var src = this
+    , ondata
+    , onerror
+    , onend;
+
+  function unbind() {
+    src.removeListener('data', ondata);
+    src.removeListener('error', onerror);
+    src.removeListener('end', onend);
+    dest.removeListener('error', onerror);
+    dest.removeListener('close', unbind);
+  }
+
+  src.on('data', ondata = function(data) {
+    dest.write(data);
+  });
+
+  src.on('error', onerror = function(err) {
+    unbind();
+    if (!this.listeners('error').length) {
+      throw err;
+    }
+  });
+
+  src.on('end', onend = function() {
+    dest.end();
+    unbind();
+  });
+
+  dest.on('error', onerror);
+  dest.on('close', unbind);
+
+  dest.emit('pipe', src);
+
+  return dest;
+};
+
+/**
  * States
  */
 
@@ -138,7 +186,7 @@ function Terminal(options) {
     return new Terminal(arguments[0], arguments[1], arguments[2]);
   }
 
-  EventEmitter.call(this);
+  Stream.call(this);
 
   if (typeof options === 'number') {
     options = {
@@ -183,6 +231,13 @@ function Terminal(options) {
 
   this.cols = options.cols || options.geometry[0];
   this.rows = options.rows || options.geometry[1];
+
+  // Act as though we are a node TTY stream:
+  this.setRawMode;
+  this.isTTY = true;
+  this.isRaw = true;
+  this.columns = this.cols;
+  this.rows = this.rows;
 
   if (options.handler) {
     this.on('data', options.handler);
@@ -269,13 +324,7 @@ function Terminal(options) {
   this.setupStops();
 }
 
-inherits(Terminal, EventEmitter);
-
-// back_color_erase feature for xterm.
-Terminal.prototype.eraseAttr = function() {
-  // if (this.is('screen')) return this.defAttr;
-  return (this.defAttr & ~0x1ff) | (this.curAttr & 0x1ff);
-};
+inherits(Terminal, Stream);
 
 /**
  * Colors
@@ -810,6 +859,12 @@ Terminal.prototype.open = function(parent) {
   if (Terminal.brokenBold == null) {
     Terminal.brokenBold = isBoldBroken(this.document);
   }
+
+  this.emit('open');
+};
+
+Terminal.prototype.setRawMode = function(value) {
+  this.isRaw = !!value;
 };
 
 // XTerm mouse events
@@ -1102,10 +1157,11 @@ Terminal.prototype.bindMouse = function() {
 
     // fix for odd bug
     //if (self.vt200Mouse && !self.normalMouse) {
-    if (self.vt200Mouse) {
-      sendButton({ __proto__: ev, type: 'mouseup' });
-      return cancel(ev);
-    }
+    // XXX This seems to break certain programs.
+    // if (self.vt200Mouse) {
+    //   sendButton({ __proto__: ev, type: 'mouseup' });
+    //   return cancel(ev);
+    // }
 
     // bind events
     if (self.normalMouse) on(self.document, 'mousemove', sendMove);
@@ -1154,16 +1210,35 @@ Terminal.prototype.bindMouse = function() {
  * Destroy Terminal
  */
 
+Terminal.prototype.close =
+Terminal.prototype.destroySoon =
 Terminal.prototype.destroy = function() {
+  if (this.destroyed) {
+    return;
+  }
+
+  if (this._blink) {
+    clearInterval(this._blink);
+    delete this._blink;
+  }
+
   this.readable = false;
   this.writable = false;
+  this.destroyed = true;
   this._events = {};
+
   this.handler = function() {};
   this.write = function() {};
+  this.end = function() {};
+
   if (this.element.parentNode) {
     this.element.parentNode.removeChild(this.element);
   }
-  //this.emit('close');
+
+  this.emit('end');
+  this.emit('close');
+  this.emit('finish');
+  this.emit('destroy');
 };
 
 /**
@@ -1367,7 +1442,7 @@ Terminal.prototype.startBlink = function() {
 };
 
 Terminal.prototype.refreshBlink = function() {
-  if (!this.cursorBlink) return;
+  if (!this.cursorBlink || !this._blink) return;
   clearInterval(this._blink);
   this._blink = setInterval(this._blinker, 500);
 };
@@ -2480,10 +2555,29 @@ Terminal.prototype.write = function(data) {
 
   this.updateRange(this.y);
   this.refresh(this.refreshStart, this.refreshEnd);
+
+  return true;
 };
 
 Terminal.prototype.writeln = function(data) {
-  this.write(data + '\r\n');
+  return this.write(data + '\r\n');
+};
+
+Terminal.prototype.end = function(data) {
+  var ret = true;
+  if (data) {
+    ret = this.write(data);
+  }
+  this.destroySoon();
+  return ret;
+};
+
+Terminal.prototype.resume = function() {
+  ;
+};
+
+Terminal.prototype.pause = function() {
+  ;
 };
 
 // Key Resources:
@@ -2495,6 +2589,10 @@ Terminal.prototype.keyDown = function(ev) {
   switch (ev.keyCode) {
     // backspace
     case 8:
+      if (ev.altKey) {
+        key = '\x17';
+        break;
+      }
       if (ev.shiftKey) {
         key = '\x08'; // ^H
         break;
@@ -2517,11 +2615,19 @@ Terminal.prototype.keyDown = function(ev) {
     case 27:
       key = '\x1b';
       break;
+    // space
+    case 32:
+      key = '\x20';
+      break;
     // left-arrow
     case 37:
       if (this.applicationCursor) {
         key = '\x1bOD'; // SS3 as ^[O for 7-bit
         //key = '\x8fD'; // SS3 as 0x8f for 8-bit
+        break;
+      }
+      if (ev.ctrlKey) {
+        key = '\x1b[5D';
         break;
       }
       key = '\x1b[D';
@@ -2530,6 +2636,10 @@ Terminal.prototype.keyDown = function(ev) {
     case 39:
       if (this.applicationCursor) {
         key = '\x1bOC';
+        break;
+      }
+      if (ev.ctrlKey) {
+        key = '\x1b[5C';
         break;
       }
       key = '\x1b[C';
@@ -2844,6 +2954,7 @@ Terminal.prototype.resize = function(x, y) {
   }
   this.setupStops(j);
   this.cols = x;
+  this.columns = x;
 
   // resize rows
   j = this.rows;
@@ -2887,6 +2998,9 @@ Terminal.prototype.resize = function(x, y) {
   // screen buffer. just set it
   // to null for now.
   this.normal = null;
+
+  // Act as though we are a node TTY stream:
+  this.emit('resize');
 };
 
 Terminal.prototype.updateRange = function(y) {
@@ -2934,6 +3048,12 @@ Terminal.prototype.nextStop = function(x) {
   return x >= this.cols
     ? this.cols - 1
     : x < 0 ? 0 : x;
+};
+
+// back_color_erase feature for xterm.
+Terminal.prototype.eraseAttr = function() {
+  // if (this.is('screen')) return this.defAttr;
+  return (this.defAttr & ~0x1ff) | (this.curAttr & 0x1ff);
 };
 
 Terminal.prototype.eraseRight = function(x, y) {
@@ -5840,6 +5960,7 @@ function keys(obj) {
  */
 
 Terminal.EventEmitter = EventEmitter;
+Terminal.Stream = Stream;
 Terminal.inherits = inherits;
 Terminal.on = on;
 Terminal.off = off;
