@@ -1,0 +1,46 @@
+html {
+  background-color: #000!important;
+}
+
+body {
+  background-color: #E6E6E6!important;
+  background: url(../img/bg4.png) no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+
+header,
+section,
+aside,
+footer {
+  margin: 0;
+}
+
+div {
+    border: 0;
+    padding: 0;
+    margin: 0 0 0 0;
+}
+
+div.terminal > div {
+    white-space: nowrap;
+    font-family: "Monaco", monospace;
+    font-weight: bold;
+}
+
+.terminal {
+    font-family: monospace;
+    font-size: 11px;
+    color: #000000!important;
+    background: rgba(255, 0, 0, 0.59)!important;
+    height: auto;
+    min-height: 500px;
+    padding-left: 7px;
+}
+
+.reverse-video {
+    color: #000;
+    background: #f0f0f0;
+}

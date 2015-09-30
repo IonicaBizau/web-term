@@ -1,17 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>WebTerm</title>
-        <link rel="icon" type="image/png" href="img/favicon.png" />
-        <link rel="stylesheet" href="css/style.css">
-        <script src="socket.io/socket.io.js"></script>
-        <script src="js/jquery.js"></script>
-        <script src="js/term.js"></script>
-        <script src="js/blm.js"></script>
-        <script src="js/web-term.js"></script>
-    </head>
-    <body>
-        <div class="container"></div>
-    </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Web Browser Terminal">
+  <meta name="keywords" content="MisterZik, Github, Insanen, HTML, CSS, XML, JavaScript">
+  <meta name="author" content="MisterZik">
+  <title>Web Browser Terminal | Web-Term + Wizard of 0S</title>
+  <link rel="icon" type="image/png" href="img/favicon.png" />
+  <link rel="stylesheet" href="css/_wizardofos.css">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-MfvZlkHCEqatNoGiOXveE8FIwMzZg4W85qfrfIFBfYc= sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+  crossorigin="anonymous">
+</head>
+
+<body>
+  <header>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="/" class="navbar-brand">
+            <div class="terminalwoo"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="jumbotron">
+      <br />
+      <div class="container" id="myTabs">
+        <ul class="nav nav-tabs pull-right" role="tablist">
+          <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Open Console</a></li>
+          <li role="presentation"><a href="#cmd" aria-controls="cmd" role="tab" data-toggle="tab">Commands</a></li>
+        </ul>
+      </div>
+
+      <div align="center">
+        <img src="img/wizardofos+webterm.png" style="border-radius: 11px;">
+      </div>
+    </div>
+
+    <div class="jumbotron" align="center">
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="home">
+          <div class="container small">
+            <div class="browser-mockup with-tab">
+              <div style="width:100%;height:200px;background: #353535;" />
+              <br />
+              <br />
+              <font color="#fff">Welcome to Web-Term,
+                <br />
+                <small>A full screen terminal in your browser.</small>
+              </font>
+              <br />
+              <br />
+              <a href="/run" class="btn btn-success btn-lg">Open Console</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div role="tabpanel" class="tab-pane" id="cmd">
+        <br />
+        <br />
+        <div class="container small">
+          <pre align="left">$ web-term -h
+            <br /> Usage: web-term [options]
+            <br />
+            <br />
+            <br /> Options:
+            <br /> -p, --port
+            <port> The web term server port.
+              <br /> -d, --daemon Start web term as background process.
+              <br /> -c, --cwd
+              <path> The path to the web terminal current working directory.
+                <br />
+                <br /> -o, --open If provided, the web term will be automatically opened in the default browser.
+                <br />
+                <br /> -b, --shell
+                <program> The shell program. By default `bash`.
+                  <br /> -s, --start
+                  <program> The start program.
+                    <br /> -h, --help Displays this help.
+                    <br /> -v, --version Displays version information.
+                    <br />
+                    <br /> Examples:
+                    <br /> web-term # Default behavior
+                    <br /> web-term -p 8080 # start on localhost:8080
+                    <br /> web-term -d # daemonize
+                    <br /> web-term -c path/to/some/dir
+                    <br /> web-term -o # Opens the web-term in the browser
+                    <br /> web-term -s alsamixer # Opens alsamixer in the browser
+                    <br />
+                    <br />
+                    <br /> Documentation can be found at https://github.com/IonicaBizau/web-term
+          </pre>
+          <br />
+          <a href="/run" class="btn btn-success btn-lg">Open Console</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <script src="js/jquery.js"></script>
+  <script src="js/tabs.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
+</body>
 </html>

@@ -72,8 +72,10 @@ var app = new Lien({
 
 // Add the route
 app.page.add("/", "index.html");
-app.page.add("/vs", "vertical-split.html");
-app.page.add("/hs", "horizontal-split.html");
+app.page.add("/run", "main.html");
+app.page.add("/doublerun", "terminals.html");
+//app.page.add("/vs", "_vertical-split.html");
+//app.page.add("/hs", "_horizontal-split.html");
 
 // Init Socket.IO
 app.io = SocketIO.listen(app._server, {
@@ -133,7 +135,7 @@ app.on("load", function (err) {
     if (err) {
         return Logger.log("Cannot start the server: " + err.toString(), "error");
     }
-    Logger.log("Successfully started the web term server: " + url);
+    Logger.log("Successfully started the web-term server with Wizard of 0S frontend, Redirect to: " + url +"/run to start the Cmd session.");
     if (openOption.is_provided) {
         Open(url);
     }
