@@ -2,11 +2,6 @@ body {
     margin-top:60px;
     font-family: 'Montserrat',sans-serif;
 }
-/* this is just for the demo */
-
-
-
-
 
 .panel-heading:hover {
     cursor:pointer;
@@ -21,140 +16,142 @@ body {
 }
 
 .side-tab:hover {
-        cursor: pointer;
-    }
-    .panel.panel-default {
-        border: none;
-        box-shadow: none !important;
-        border-bottom-right-radius: 0px;
-        border-bottom-left-radius: 0px;
+    cursor: pointer;
+}
+.panel.panel-default {
+    border: none;
+    box-shadow: none !important;
+    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
 
-    }
-    .panel-heading {
-        border: none;
-        background-color: #eee;
+}
+.panel-heading {
+    border: none;
+    background-color: #eee;
 
-    }
-    .panel-body {
-        background-color: #f5f5f5;
-    }
-    .panel-title {
-        font-weight: 400;
-        color: $white;
-    }
+}
+.panel-body {
+    background-color: #f5f5f5;
+}
+.panel-title {
+    font-weight: 400;
+    color: $white;
+}
 
 /*----------------------------------
-    Macbook pro mockup from:
-    http://jaredhardy.com/minimal-devices/
+Macbook pro mockup from:
+http://jaredhardy.com/minimal-devices/
 
 ----------------------------------*/
 
 .md-macbook-pro {
-  display: block;
-  width: 55.3125em;
-  height: 31.875em;
-  font-size: 13px;
-  margin: 0 auto;
+    display: block;
+    width: 55.3125em;
+    height: 31.875em;
+    font-size: 13px;
+    margin: 0 auto;
 
-  @media (max-width:1199px){
-    font-size: 11px;
-  }
-  @media (max-width:1024px){
-    font-size: 10px;
-  }
+    @media (max-width:1199px){
+        font-size: 11px;
+    }
+    @media (max-width:1024px){
+        font-size: 10px;
+    }
 
-  @media (max-width:767px){
-    font-size: 7px;
-  }
+    @media (max-width:767px){
+        font-size: 7px;
+    }
 
-  @media (max-width:320px){
-    font-size: 5px;
-  }
-
+    @media (max-width:320px){
+        font-size: 5px;
+    }
 }
+
 .md-macbook-pro .md-lid {
-  width: 45em;
-  height: 30.625em;
-  overflow: hidden;
-  margin: 0 auto;
-  position: relative;
-  border-radius: 1.875em;
-  border: solid 0.1875em #cdced1;
-  background: #131313;
+    width: 45em;
+    height: 30.625em;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 1.875em;
+    border: solid 0.1875em #cdced1;
+    background: #131313;
 }
 .md-macbook-pro .md-camera {
-  width: 0.375em;
-  height: 0.375em;
-  margin: 0 auto;
-  position: relative;
-  top: 1.0625em;
-  background: #000;
-  border-radius: 100%;
-  box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25);
+    width: 0.375em;
+    height: 0.375em;
+    margin: 0 auto;
+    position: relative;
+    top: 1.0625em;
+    background: #000;
+    border-radius: 100%;
+    box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.25);
 }
 .md-macbook-pro .md-camera:after {
-  content: "";
-  display: block;
-  width: 0.125em;
-  height: 0.125em;
-  position: absolute;
-  left: 0.125em;
-  top: 0.0625em;
-  background: #353542;
-  border-radius: 100%;
+    content: "";
+    display: block;
+    width: 0.125em;
+    height: 0.125em;
+    position: absolute;
+    left: 0.125em;
+    top: 0.0625em;
+    background: #353542;
+    border-radius: 100%;
 }
 .md-macbook-pro .md-screen {
-  width: 42.25em;
-  height: 26.375em;
-  margin: 0 auto;
-  position: relative;
-  top: 2.0625em;
-  // background: #1d1d1d;
-  background: #fff;
-  overflow: hidden;
+    width: 42.25em;
+    height: 26.375em;
+    margin: 0 auto;
+    position: relative;
+    top: 2.0625em;
+    // background: #1d1d1d;
+    background: #fff;
+    overflow: hidden;
 }
 .md-macbook-pro .md-screen img {
-  width: 100%;
+    width: 100%;
 }
 .md-macbook-pro .md-base {
-  width: 100%;
-  height: 0.9375em;
-  position: relative;
-  top: -0.75em;
-  background: #c6c7ca;
+    width: 100%;
+    height: 0.9375em;
+    position: relative;
+    top: -0.75em;
+    background: #c6c7ca;
 }
 .md-macbook-pro .md-base:after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 0.5em;
-  margin: 0 auto;
-  position: relative;
-  bottom: -0.1875em;
-  background: #b9babe;
-  border-radius: 0 0 1.25em 1.25em;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0.5em;
+    margin: 0 auto;
+    position: relative;
+    bottom: -0.1875em;
+    background: #b9babe;
+    border-radius: 0 0 1.25em 1.25em;
 }
 .md-macbook-pro .md-base:before {
-  content: "";
-  display: block;
-  width: 7.6875em;
-  height: 0.625em;
-  margin: 0 auto;
-  position: relative;
-  background: #a6a8ad;
-  border-radius: 0 0 0.625em 0.625em;
+    content: "";
+    display: block;
+    width: 7.6875em;
+    height: 0.625em;
+    margin: 0 auto;
+    position: relative;
+    background: #a6a8ad;
+    border-radius: 0 0 0.625em 0.625em;
 }
 .md-macbook-pro.md-glare .md-lid:after {
-  content: "";
-  display: block;
-  width: 50%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0 1.25em 0 0;
-  background: -webkit-linear-gradient(37deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
-  background: -moz-linear-gradient(37deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
-  background: -o-linear-gradient(37deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
-  background: linear-gradient(53deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
+    content: "";
+    display: block;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 1.25em 0 0;
+    background: -webkit-linear-gradient(37deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
+    background: -moz-linear-gradient(37deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
+    background: -o-linear-gradient(37deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
+    background: linear-gradient(53deg, rgba(255, 255, 255, 0) 50%, rgba(247, 248, 240, 0.025) 50%, rgba(250, 245, 252, 0.08));
 }
+
+
