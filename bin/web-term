@@ -139,7 +139,9 @@ app.on("load", function (err) {
     if (err) {
         return Logger.log("Cannot start the server: " + err.toString(), "error");
     }
-    Logger.log("Successfully started the Web-Term server, Redirect to: " + url +". For more themes options, Go to: " + url +"/themes ");
+    Logger.log("Successfully started the Web-Term server.");
+    Logger.log("App is running on " + url);
+    Logger.log("For more themes options, go to: " + url + "/themes");
     if (openOption.is_provided) {
         Open(url);
     }
