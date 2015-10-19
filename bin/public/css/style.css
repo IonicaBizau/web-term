@@ -8,6 +8,7 @@ div.terminal > div {
     white-space: nowrap;
     font-family: "Monaco", monospace;
     font-weight: bold;
+    flex: 1;
 }
 
 .terminal {
