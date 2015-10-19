@@ -8,7 +8,6 @@ div.terminal > div {
     white-space: nowrap;
     font-family: "Monaco", monospace;
     font-weight: bold;
-    flex: 1;
 }
 
 .terminal {
@@ -21,8 +20,6 @@ div.terminal > div {
     left: 0;
     right: 0;
     bottom: 0;
-    display: flex;
-    flex-direction: column;
 }
 
 .reverse-video {
