@@ -7,22 +7,18 @@
     $.fn.textSize = function () {
         var $self = this;
 
-        var span = document.createElement("span");
-        var newContent = document.createTextNode("o");
+        function getOuterDimensions (elementDOM, row) {
+            row = row || elementDOM;
+            var boundingBox = elementDOM.getBoundingClientRect()
+              , rowBouding = row.getBoundingClientRect()
+              , width = boundingBox.width
+              , height = rowBouding.height
+              , computed = getComputedStyle(elementDOM)
+              , computedRow = getComputedStyle(row)
+              ;
 
-        function getOuterDimensions (elementDOM) {
-            var width,
-            height;
-            var boundingBox = elementDOM.getBoundingClientRect();
-
-            // Get the width and height without margins
-            width = boundingBox.width;
-            height = boundingBox.height;
-
-            // Add margins to the width and height
-            var computed = getComputedStyle(elementDOM);
             width = width + parseInt(computed.marginRight) + parseInt(computed.marginLeft);
-            height = height + parseInt(computed.marginTop) + parseInt(computed.marginBottom);
+            height = height + parseInt(computedRow.marginTop) + parseInt(computedRow.marginBottom);
 
             return {
                 width: width,
@@ -30,10 +26,19 @@
             }
         }
 
+        var row = $(".terminal > div:eq(1)");
+        if (row.length && row.height() < 30) {
+            row = row.get(0);
+        } else {
+            row = null;
+        }
+
+        var span = document.createElement("span");
+        var newContent = document.createTextNode("o");
         span.appendChild(newContent);
         $self.get(0).children[0].appendChild(span)
 
-        var charSize = getOuterDimensions(span);
+        var charSize = getOuterDimensions(span, row);
         var targetSize = getOuterDimensions($self.get(0));
 
         span.remove();
