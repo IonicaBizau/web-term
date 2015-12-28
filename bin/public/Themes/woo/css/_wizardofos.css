@@ -1,0 +1,218 @@
+html {
+  background-color: #E6E6E6!important;
+}
+body {
+  background-color: #E6E6E6!important;
+}
+header, section, aside, footer {
+  margin: 0;
+}
+
+#core {
+  background-color: #000;
+  margin-bottom: 1em;
+}
+section {
+  float: left;
+  width: 85%;
+  min-height: 300px;
+}
+aside {
+  float: right;
+  width: 15%;
+  padding-left: 8px;
+  padding-top: 4px;
+  background-color: #232121;
+  color: #fff;
+}
+iframe.left {
+    width: 100%;
+    min-height: 300px;
+    border-bottom: 6px solid #464646;
+    margin-top: 1em;
+    margin-bottom: 0em;
+    padding-bottom: 1em;
+}
+iframe.right {
+    width: 100%;
+    min-height: 291px;
+    margin-top: 9px;
+    margin-bottom: 8px;
+}
+iframe.full {
+  width: 100%;
+  margin-top: 17px;
+  /* margin-bottom: 10px; */
+  min-height: 550px;
+  height: 598px;
+}
+footer {
+  clear: both;
+  margin-bottom: 0;
+  background-color: #000;
+  padding-left: 7px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  border-radius: 5px;
+  color: #fff;
+}
+.bodycontent {
+  margin-top: 4%;
+}
+img.logo {
+  width: 9%;
+  margin-top: 6px;
+}
+div {
+  border: 0;
+  padding: 0;
+  margin: 0 0 0 0;
+}
+div.terminal > div {
+  white-space: nowrap;
+  font-family: "Monaco", monospace;
+  font-weight: bold;
+}
+.terminal {
+  font-family: monospace;
+  font-size: 11px;
+  color: #f0f0f0;
+  background: rgba(255, 0, 0, 0.59)!important;
+  height: auto;
+  min-height: 500px;
+  padding-left: 7px;
+}
+.reverse-video {
+  color: #000;
+  background: #f0f0f0;
+}
+.terminalwoo {
+  content: url("../img/Wizard-of-os-black.png");
+  width: 90px;
+  margin-top: -5px;
+}
+.terminalftwoo {
+  content: url("../img/wizardofos.png");
+  width: 90px;
+  margin-top: 3px;
+  opacity: 0.9;
+  padding: 2px;
+}
+
+.web-term {
+  padding-top: 4px;
+  padding-bottom: 3px;
+  opacity: 0.7;
+}
+
+#iphost {
+  margin-left: -25px;
+}
+
+#myTabs {
+  width: 78.5%;
+}
+.container.small {
+  width: 81%;
+}
+.btn-group, .btn-group-vertical {
+  width: 100%;
+  margin-top: -3px;
+  margin-left: -3px;
+  padding: 10px;
+}
+.btn-group-vertical>.btn.active, .btn-group-vertical>.btn:active, .btn-group-vertical>.btn:focus, .btn-group-vertical>.btn:hover, .btn-group>.btn.active, .btn-group>.btn:active, .btn-group>.btn:focus, .btn-group>.btn:hover {
+  outline: 0;
+}
+
+/* Browser MockUp */
+
+.browser-mockup {
+  border-top: 2em solid rgba(230, 230, 230, 0.7);
+  box-shadow: 0 0.1em 1em 0 rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-radius: 3px 3px 0 0
+}
+.browser-mockup:before {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -1.25em;
+  left: 1em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background-color: #f44;
+  box-shadow: 0 0 0 2px #f44, 1.5em 0 0 2px #9b3, 3em 0 0 2px #fb5;
+}
+.browser-mockup.with-tab:after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -2em;
+  left: 5.5em;
+  width: 20%;
+  height: 0em;
+  border-bottom: 2em solid white;
+  border-left: 0.8em solid transparent;
+  border-right: 0.8em solid transparent;
+}
+.browser-mockup.with-url:after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: -1.6em;
+  left: 5.5em;
+  width: calc(100% - 6em);
+  height: 1.2em;
+  border-radius: 2px;
+  background-color: white;
+}
+.browser-mockup > * {
+  display: block;
+}
+.browser-mockup {
+  margin: 2em;
+  flex: 1;
+}
+
+/* End Browser */
+
+
+/* Mobile Versions - Media Q's */
+
+
+/* Large desktops and laptops */
+
+@media (min-width: 1200px) {}
+
+/* Landscape tablets and medium desktops */
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+/* Portrait tablets and small desktops */
+
+@media (min-width: 768px) and (max-width: 991px) {
+  aside {
+    float: none;
+    width: 100%;
+  }
+}
+
+/* Landscape phones and portrait tablets */
+
+@media (max-width: 767px) {
+  aside {
+    float: none;
+    width: 100%;
+  }
+}
+
+/* Portrait phones and smaller */
+
+@media (max-width: 480px) {
+  aside {
+    float: none;
+    width: 100%;
+  }
+}

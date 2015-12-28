@@ -1,6 +1,6 @@
 {
   "name": "web-term",
-  "version": "3.3.0",
+  "version": "4.3.0",
   "description": "A full screen terminal in your browser.",
   "main": "lib/index.js",
   "bin": {
@@ -18,20 +18,46 @@
     "browser",
     "terminal"
   ],
-  "author": "Ionică Bizău <bizauionica@gmail.com>",
+  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
   "contributors": [
+    "MisterZik <misterzik@insanen.com> (http://insanen.com)",
     "Christopher Jeffrey <chjjeffrey@gmail.com>",
     "Ionică Bizău <bizauionica@gmail.com>",
+    "Szabo Cristian <lcristianiim@yahoo.com>",
     "jillix <contact@jillix.com>"
   ],
-  "license": "KINDLY",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/IonicaBizau/web-term/issues"
   },
   "homepage": "https://github.com/IonicaBizau/web-term",
   "devDependencies": {},
   "blah": {
-    "h_img": "http://i.imgur.com/3kMJhvc.png"
+    "h_img": "http://i.imgur.com/3kMJhvc.png",
+    "installation": [
+      {
+        "h2": "Screenshots"
+      },
+      {
+        "h3": "VIM"
+      },
+      {
+        "img": {
+          "source": "http://i.imgur.com/49FTpfI.png"
+        }
+      },
+      {
+        "h3": "Alsamixer"
+      },
+      {
+        "img": {
+          "source": "http://i.imgur.com/rJbtLdi.jpg"
+        }
+      }
+    ],
+    "thanks": [
+      "This project is highly based on [`tty.js`](https://github.com/chjj/tty.js) created by [@chjj](https://github.com/chjj). Thanks a lot for this awesome stuff!"
+    ]
   },
   "dependencies": {
     "bug-killer": "^4.0.0",

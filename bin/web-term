@@ -16,6 +16,7 @@ var Lien = require("lien")
 
 // Create options and add them
 var portOption = new Clp.Option(["p", "port"], "The web term server port.", "port", 9000)
+  , hostOption = new Clp.Option(["h", "host"], "The host to listen to, defaults to [0.0.0.0].")
   , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
   , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
@@ -28,7 +29,8 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
       , exe: Package.name
       , examples: [
             "web-term # Default behavior"
-          , "web-term -p 8080 # start on localhost:8080"
+          , "web-term -p 8080 # start on 0.0.0.0:8080"
+          , "web-term -p 8080 -h localhost # start on localhost:8080"
           , "web-term -d # daemonize"
           , "web-term -c path/to/some/dir"
           , "web-term -o # Opens the web-term in the browser"
@@ -65,7 +67,7 @@ if (cwdOption.is_provided) {
 
 // Init the server
 var app = new Lien({
-    host: "localhost"
+    host: hostOption.value || "0.0.0.0"
   , port: portOption.value
   , root: __dirname + "/public"
 });
@@ -74,6 +76,12 @@ var app = new Lien({
 app.page.add("/", "index.html");
 app.page.add("/vs", "vertical-split.html");
 app.page.add("/hs", "horizontal-split.html");
+// Themes options
+app.page.add("/themes", "/Themes/index.html");
+app.page.add("/woo", "/Themes/woo/index.html");
+app.page.add("/run", "/Themes/woo/main.html");
+app.page.add("/doublerun", "/Themes/woo/terminals.html");
+
 
 // Init Socket.IO
 app.io = SocketIO.listen(app._server, {
@@ -133,7 +141,9 @@ app.on("load", function (err) {
     if (err) {
         return Logger.log("Cannot start the server: " + err.toString(), "error");
     }
-    Logger.log("Successfully started the web term server: " + url);
+    Logger.log("Successfully started the Web-Term server.");
+    Logger.log("App is running on " + url);
+    Logger.log("For more themes options, go to: " + url + "/themes");
     if (openOption.is_provided) {
         Open(url);
     }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Web Browser Terminal">
+  <meta name="keywords" content="MisterZik, Github, Insanen, HTML, CSS, XML, JavaScript">
+  <meta name="author" content="MisterZik">
+  <title>Web Browser Terminal | Web-Term + Wizard of 0S</title>
+  <link rel="icon" type="image/png" href="../../Themes/woo/img/favicon.png" />
+  <link rel="stylesheet" href="Themes/woo/css/_wizardofos.css">
+  <link href="../../Themes/woo/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a href="/woo" class="navbar-brand">
+            <div class="terminalwoo"></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" style="margin-top: 5%;">
+    <section id="core" class="container-fluid">
+      <iframe class="full" src="/" allowtransparency="true" frameBorder="0" scrolling="yes"></iframe>
+    </section>
+
+    <aside>
+      <div class="btn-group-vertical">
+        <button type="button" class="btn btn-xs btn-default"><a href="/">Home</a></button>
+        <button type="button" class="btn btn-xs btn-default"><a href="/doublerun">2X1 Terminal</a></button>
+        <button type="button" class="btn btn-xs btn-danger" data-toggle="tab" href="#sectionB">Who Am I?</button>
+      </div>
+
+      <br />
+      <br />
+
+      <div class="tab-content">
+        <div id="sectionB" class="tab-pane fade">
+          Personal Information
+          <hr/>
+          <div id="iphost"></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="Themes/woo/js/jquery.js"></script>
+  <script src="Themes/woo/js/creepy.js"></script>
+  <script src="../../Themes/woo/js/bootstrap.min.js"></script>
+</body>
+</html>
