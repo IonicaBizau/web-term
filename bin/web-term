@@ -16,7 +16,7 @@ var Lien = require("lien")
 
 // Create options and add them
 var portOption = new Clp.Option(["p", "port"], "The web term server port.", "port", 9000)
-  , hostOption = new Clp.Option(["h", "host"], "The host to listen to, defaults to [0.0.0.0].")
+  , hostOption = new Clp.Option(["H", "host"], "The host to listen to.", "0.0.0.0")
   , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
   , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
@@ -37,7 +37,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
           , "web-term -s alsamixer # Opens alsamixer in the browser"
         ]
       , docs_url: Package.homepage
-    }, [portOption, daemonOption, cwdOption, openOption, shellOption, startOption])
+    }, [portOption, daemonOption, cwdOption, hostOption, openOption, shellOption, startOption])
   ;
 
 
@@ -67,7 +67,7 @@ if (cwdOption.is_provided) {
 
 // Init the server
 var app = new Lien({
-    host: hostOption.value || "0.0.0.0"
+    host: hostOption.value
   , port: portOption.value
   , root: __dirname + "/public"
 });
@@ -76,12 +76,12 @@ var app = new Lien({
 app.page.add("/", "index.html");
 app.page.add("/vs", "vertical-split.html");
 app.page.add("/hs", "horizontal-split.html");
+
 // Themes options
 app.page.add("/themes", "/Themes/index.html");
 app.page.add("/woo", "/Themes/woo/index.html");
 app.page.add("/run", "/Themes/woo/main.html");
 app.page.add("/doublerun", "/Themes/woo/terminals.html");
-
 
 // Init Socket.IO
 app.io = SocketIO.listen(app._server, {
@@ -137,7 +137,7 @@ app.io.sockets.on("connection", function(socket) {
 
 // Listen for the server load
 app.on("load", function (err) {
-    var url = "http://localhost:" + portOption.value;
+    var url = "http://" + hostOption.value + ":" + portOption.value;
     if (err) {
         return Logger.log("Cannot start the server: " + err.toString(), "error");
     }

@@ -23,6 +23,7 @@ Options:
   -d, --daemon           Start web term as background process.          
   -c, --cwd <path>       The path to the web terminal current working   
                          directory.                                     
+  -h, --host <0.0.0.0>   The host to listen to.                         
   -o, --open             If provided, the web term will be automatically
                          opened in the default browser.                 
   -b, --shell <program>  The shell program. By default `bash`.          
