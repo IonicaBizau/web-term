@@ -16,6 +16,7 @@ var Lien = require("lien")
 
 // Create options and add them
 var portOption = new Clp.Option(["p", "port"], "The web term server port.", "port", 9000)
+  , hostOption = new Clp.Option(["h", "host"], "The host to listen to, defaults to [0.0.0.0].")
   , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
   , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
@@ -65,7 +66,7 @@ if (cwdOption.is_provided) {
 
 // Init the server
 var app = new Lien({
-    host: "localhost"
+    host: hostOption.value || "0.0.0.0"
   , port: portOption.value
   , root: __dirname + "/public"
 });
