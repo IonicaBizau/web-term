@@ -32,7 +32,8 @@ Options:
 
 Examples:
   web-term # Default behavior
-  web-term -p 8080 # start on localhost:8080
+  web-term -p 8080 # start on 0.0.0.0:8080
+  web-term -p 8080 -h localhost # start on localhost:8080
   web-term -d # daemonize
   web-term -c path/to/some/dir
   web-term -o # Opens the web-term in the browser
