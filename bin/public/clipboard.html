@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>WebTerm</title>
+        <link rel="icon" type="image/png" href="img/favicon.png" />
+        <link rel="stylesheet" href="css/style.css">
+        <script src="socket.io/socket.io.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="js/term.js"></script>
+        <script src="js/blm.js"></script>
+        <script src="js/copy.js"></script>
+        <script src="js/web-term.js"></script>
+        <style>
+            html, body { height: 100%; }
+            .menu {
+                right: 0;
+                bottom: 0;
+                position: absolute;
+                border: none;
+                width: 25em;
+                z-index: 2;
+                font-family: "Monaco", monospace;
+                font-size: 10px;
+            }
+            .menu button.copy {
+                float: right;
+                color: #088687;
+                z-index: 2;
+                width: 4em;
+                background: none;
+                font-weight: bold;
+                border: 2px solid #088687;
+                cursor: pointer;
+            }
+            .menu .clipboard {
+                float: right;
+                color: #657b83;
+                max-width: 20em;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 0.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="menu">
+            <button class="copy">copy</button>
+            <div class="clipboard"></div>
+        </div>
+        <div class="container"></div>
+    </body>
+</html>

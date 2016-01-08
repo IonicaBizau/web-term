@@ -74,6 +74,7 @@ var app = new Lien({
 
 // Add the route
 app.page.add("/", "index.html");
+app.page.add("/cb", "clipboard.html");
 app.page.add("/vs", "vertical-split.html");
 app.page.add("/hs", "horizontal-split.html");
 
@@ -132,6 +133,13 @@ app.io.sockets.on("connection", function(socket) {
     socket.on("request paste", function(callback) {
         if (!terminal) { return; }
         terminal.paste(callback);
+    });
+});
+
+app.page.add("/copy", 'put', function(lien){
+    lien.req.on('data', function(chunk) {
+        app.io.emit('copy', chunk.toString());
+        lien.end();
     });
 });
 
