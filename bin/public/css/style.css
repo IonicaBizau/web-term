@@ -19,10 +19,11 @@ div.terminal > div > span::first-letter {
 }
 
 .terminal {
+    padding: 5px;
     font-family: monospace;
-    font-size: 11px;
+    font-size: 12px;
     color: #f0f0f0;
-    background: #1A1A1A !important;
+    //background: #1A1A1A !important;
     position: fixed;
     top: 0;
     left: 0;

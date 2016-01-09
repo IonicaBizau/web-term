@@ -1328,7 +1328,7 @@ Terminal.prototype.refresh = function(start, end) {
                 out += 'font-weight:bold;';
               }
               // See: XTerm*boldColors
-              if (fg < 8) fg += 8;
+              //if (fg < 8) fg += 8;
             }
 
             // underline

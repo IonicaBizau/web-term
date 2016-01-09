@@ -15,8 +15,9 @@
     </head>
     <body>
         <div class="menu">
-            <button class="switch">lights</button>
-            <button class="copy">copy</button>
+            <button class="hide"></button>
+            <button class="switch" style="display: none">lights</button>
+            <button class="copy" title="copy"><img src="./Themes/pencil.svg"></button>
             <div class="clipboard"></div>
         </div>
         <div class="container solarized dark"></div>
@@ -25,6 +26,9 @@
                 $('.solarized').toggleClass('dark');
                 $('.solarized').toggleClass('light');
             })
+            $('button.hide').click(function(){
+                $('.menu').toggleClass('hide');
+            });
         </script>
     </body>
 </html>
