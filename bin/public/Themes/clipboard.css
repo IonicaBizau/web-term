@@ -1,0 +1,44 @@
+html, body { height: 100%; }
+.menu {
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    border: none;
+    width: 25em;
+    z-index: 2;
+    font-family: monospace;
+    font-size: 10px;
+}
+.menu button.switch,
+.menu button.copy {
+    float: right;
+    color: #088687;
+    z-index: 2;
+    width: 4em;
+    background: none;
+    font-weight: bold;
+    border: 2px solid #088687;
+    cursor: pointer;
+}
+.menu button.switch {
+    color: #cb4b16;
+    border: 2px solid #cb4b16;
+}
+.menu .clipboard {
+    float: right;
+    color: #657b83;
+    max-width: 20em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.5em;
+}
+
+.container.solarized.dark .terminal {
+    background-color: #002b36!important;
+    color: #839496!important;
+}
+.container.solarized.light .terminal {
+    background-color: #fdf6e3!important;
+    color: #839496!important;
+}

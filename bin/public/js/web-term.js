@@ -95,7 +95,26 @@
             /// Create the tab
             var tab = term.tab = Terminal.call(term, {
                 cols: win.cols,
-                rows: win.rows
+                rows: win.rows,
+                colors: [
+                    '#073642', //$base02:
+                    '#dc322f', //$red:   
+                    '#859900', //$green: 
+                    '#b58900', //$yellow:
+                    '#268bd2', //$blue:  
+                    '#d33682', //$magenta
+                    '#2aa198', //$cyan:  
+                    '#eee8d5', //$base2: 
+
+                    '#002b36', //$base03:
+                    '#cb4b16', //$orange:
+                    '#586e75', //$base01:
+                    '#657b83', //$base00:
+                    '#93a1a1', //$base1: 
+                    '#6c71c4', //$violet:
+                    '#839496', //$base0: 
+                    '#fdf6e3' //$base3: 
+                ]
             });
 
             // Create the terminal

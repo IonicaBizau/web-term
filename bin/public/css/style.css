@@ -6,12 +6,16 @@ div {
 
 div.terminal > div {
     white-space: nowrap;
-    font-family: "Monaco", monospace;
-    font-weight: bold;
+    font-family: monospace;
+    font-weight: normal;
 }
 
 div.terminal > div > span {
     display: inline-block;
+    min-width: 0.6em;
+}
+div.terminal > div > span::first-letter {
+    max-width: 0.6em;
 }
 
 .terminal {
