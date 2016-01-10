@@ -1,4 +1,4 @@
-@import url(bag.fixed.css);
+@import url(bag.fluid.css);
 @import url(https://cdn.rawgit.com/connors/photon/master/dist/css/photon.css);
 @import url(https://cdnjs.cloudflare.com/ajax/libs/gridly/1.4.0/prefixed/gridly-core.min.css);
 @import url(https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css);
@@ -10,4 +10,10 @@
 input.form-control[type="color"] {
     height: 49px;
     margin-bottom: 10px;
+}
+
+.btn[disabled] {
+  color: #b7b7b7;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F7F7F7), color-stop(100%, #ECECEC));
+  border-color: #C7C7C7;
 }

@@ -95,7 +95,7 @@ app.page.add("/api/settings/save", function (lien) {
         if (err) {
             return lien.end(err, 400);
         }
-        lien.end();
+        lien.end({});
     });
 });
 
