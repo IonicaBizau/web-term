@@ -1,3 +1,9 @@
+if (typeof require === "function") {
+    var $ = require("./jquery")
+      , Terminal = require("./term")
+      ;
+}
+
 (function ($) {
     var EventEmitter = Terminal.EventEmitter;
 
@@ -95,7 +101,28 @@
             /// Create the tab
             var tab = term.tab = Terminal.call(term, {
                 cols: win.cols,
-                rows: win.rows
+                rows: win.rows,
+                colors: [ // from ethanschoonover.com/solarized
+                    "#073642", //$base02
+                    "#e74c3c", //$red
+                    "#2ecc71", //$green
+                    "#f1c40f", //$yellow
+                    "#3498db", //$blue
+                    "#9b59b6", //$magenta
+                    "#1abc9c", //$cyan
+
+                    "#eee8d5", //$base2
+                    "#002b36", //$base03
+                    "#cb4b16", //$orange
+                    "#586e75", //$base01
+                    "#657b83", //$base00
+                    "#e67e22", //$base1
+                    "#6c71c4", //$violet
+                    "#839496", //$base0
+                    "#fdf6e3", //$base3
+                    "#002b36",  //$base03 and background
+                    "#ecf0f1"
+                ]
             });
 
             // Create the terminal
@@ -125,7 +152,7 @@
             tab.open(win.$.get(0));
             tab.focus();
             tab.on("data", function (data) {
-                term.socket.emit("data", data);
+                term.socket.emit("dataToServer", data);
             });
 
             win.bind();
