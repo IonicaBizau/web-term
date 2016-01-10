@@ -189,4 +189,4 @@
     blm._leaves = _leaves;
 
     root.blm = blm;
-})(this);
+})(window);
