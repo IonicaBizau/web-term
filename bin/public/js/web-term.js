@@ -76,7 +76,7 @@ if (typeof require === "function") {
             _resizeTimer = setTimeout(term.updateSize, 100);
         });
 
-        function openTerm() {
+        function openTerm(options) {
             term.socket = io.connect();
 
             // Initialize ui
@@ -100,29 +100,9 @@ if (typeof require === "function") {
 
             /// Create the tab
             var tab = term.tab = Terminal.call(term, {
-                cols: win.cols,
-                rows: win.rows,
-                colors: [ // from ethanschoonover.com/solarized
-                    "#073642", //$base02
-                    "#e74c3c", //$red
-                    "#2ecc71", //$green
-                    "#f1c40f", //$yellow
-                    "#3498db", //$blue
-                    "#9b59b6", //$magenta
-                    "#1abc9c", //$cyan
-
-                    "#eee8d5", //$base2
-                    "#002b36", //$base03
-                    "#cb4b16", //$orange
-                    "#586e75", //$base01
-                    "#657b83", //$base00
-                    "#e67e22", //$base1
-                    "#6c71c4", //$violet
-                    "#839496", //$base0
-                    "#fdf6e3", //$base3
-                    "#002b36",  //$base03 and background
-                    "#ecf0f1"
-                ]
+                cols: win.cols
+              , rows: win.rows
+              , colors: options.colors.palette
             });
 
             // Create the terminal
@@ -148,6 +128,14 @@ if (typeof require === "function") {
                 window.close()
             });
 
+            function updateSettings(err, settings) {
+                // TODO Update colors
+                $(".terminal").css("font-size", settings.general.font_size);
+                term.updateSize();
+            }
+
+            term.socket.on("terminalSettings", updateSettings);
+
 
             tab.open(win.$.get(0));
             tab.focus();
@@ -159,11 +147,13 @@ if (typeof require === "function") {
 
             term.emit("load");
             term.emit("open");
-            term.updateSize();
+            updateSettings(null, options);
         }
 
         // Open the terminal
-        openTerm();
+        $.getJSON("/api/settings/get", function (options) {
+            openTerm(options);
+        });
     };
 })($);
 
