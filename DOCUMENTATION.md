@@ -21,6 +21,28 @@ Creates a new terminal instance.
 #### Return
 - **Terminal** The terminal instance.
 
+### `sendTerminalSettings(callback)`
+Sends the terminal settings accross the sockets.
+
+#### Params
+- **Function** `callback`: The callback function.
+
+### `_watchConfig()`
+Watches the config file for changes.
+
+### `readSettings(callback)`
+Reads the settings from the config file.
+
+#### Params
+- **Function** `callback`: The callback function.
+
+### `writeSettings(data, callback)`
+Writes the settings in the config file.
+
+#### Params
+- **Object** `data`: The new settings.
+- **Function** `callback`: The callback function.
+
 ### `data(data)`
 Writes data in the `WebTerm` instance.
 
