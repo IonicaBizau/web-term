@@ -82,10 +82,30 @@ app.page.add("/themes", "/Themes/index.html");
 app.page.add("/woo", "/Themes/woo/index.html");
 app.page.add("/run", "/Themes/woo/main.html");
 app.page.add("/doublerun", "/Themes/woo/terminals.html");
+app.page.add("/settings", "/settings.html");
 
 // Init Socket.IO
 app.io = SocketIO.listen(app._server, {
     log: false
+});
+
+app.page.add("/api/settings/save", function (lien) {
+    if (!lien.data) { return; }
+    WebTerm.writeSettings(lien.data, function (err, data) {
+        if (err) {
+            return lien.end(err, 400);
+        }
+        lien.end();
+    });
+});
+
+app.page.add("/api/settings/get", function (lien) {
+    WebTerm.readSettings(function (err, data) {
+        if (err) {
+            return lien.end(err, 400);
+        }
+        lien.end(data);
+    });
 });
 
 // Handle connections
@@ -108,7 +128,7 @@ app.io.sockets.on("connection", function(socket) {
         callback();
     });
 
-    socket.on("data", function(data) {
+    socket.on("dataToServer", function(data) {
         if (!terminal) { return; }
         terminal.data(data);
     });
@@ -127,11 +147,6 @@ app.io.sockets.on("connection", function(socket) {
         if (!terminal) { return; }
         terminal.kill();
         terminal = null;
-    });
-
-    socket.on("request paste", function(callback) {
-        if (!terminal) { return; }
-        terminal.paste(callback);
     });
 });
 
