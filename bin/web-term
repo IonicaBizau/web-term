@@ -165,6 +165,7 @@ app.on("load", function (err) {
     Logger.log("Successfully started the Web-Term server.");
     Logger.log("App is running on " + url);
     Logger.log("For more themes options, go to: " + url + "/themes");
+    Logger.log("For more settings, go to: " + url + "/settings");
     if (openOption.is_provided) {
         Open(url);
     }
