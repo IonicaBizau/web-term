@@ -117,7 +117,7 @@ if (typeof require === "function") {
                 term.updateSize();
             });
 
-            // Listen for connet
+            // Listen for connect
             term.socket.on("connect", function() {
                 term.emit("connect");
             });
@@ -126,17 +126,6 @@ if (typeof require === "function") {
             term.socket.on("data", function(data) {
                 tab.write(data);
             });
-
-            if(document.copyEnabled == true){
-                console.log('enabling copy')
-                // Listen for copy commands
-                $('button.copy').click(function(event) {
-                    copyTextToClipboard($('.clipboard').text());
-                });
-                term.socket.on("copy", function(text) {
-                    $('.clipboard').text(text);
-                });
-            }
 
             // Listen for kill event
             term.socket.on("kill", function() {

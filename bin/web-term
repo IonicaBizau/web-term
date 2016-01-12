@@ -74,7 +74,6 @@ var app = new Lien({
 
 // Add the route
 app.page.add("/", "index.html");
-app.page.add("/cb", "clipboard.html");
 app.page.add("/vs", "vertical-split.html");
 app.page.add("/hs", "horizontal-split.html");
 
