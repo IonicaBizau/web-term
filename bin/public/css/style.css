@@ -18,6 +18,7 @@ div.terminal > div > span {
     font-family: monospace;
     font-size: 14px;
     color: #f0f0f0;
+    background: #1A1A1A;
     position: fixed;
     top: 0;
     left: 0;
