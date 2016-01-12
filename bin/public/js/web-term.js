@@ -1,3 +1,9 @@
+if (typeof require === "function") {
+    var $ = require("./jquery")
+      , Terminal = require("./term")
+      ;
+}
+
 (function ($) {
     var EventEmitter = Terminal.EventEmitter;
 
@@ -70,7 +76,7 @@
             _resizeTimer = setTimeout(term.updateSize, 100);
         });
 
-        function openTerm() {
+        function openTerm(options) {
             term.socket = io.connect();
 
             // Initialize ui
@@ -94,29 +100,9 @@
 
             /// Create the tab
             var tab = term.tab = Terminal.call(term, {
-                cols: win.cols,
-                rows: win.rows,
-                colors: [
-                    '#073642', //$base02
-                    '#dc322f', //$red
-                    '#859900', //$green
-                    '#b58900', //$yellow
-                    '#268bd2', //$blue
-                    '#d33682', //$magenta
-                    '#2aa198', //$cyan
-                    '#eee8d5', //$base2
-
-                    '#002b36', //$base03
-                    '#cb4b16', //$orange
-                    '#586e75', //$base01
-                    '#657b83', //$base00
-                    '#93a1a1', //$base1
-                    '#6c71c4', //$violet
-                    '#839496', //$base0
-                    '#fdf6e3', //$base3 
-
-                    '#002b36', '#839496'
-                ]
+                cols: win.cols
+              , rows: win.rows
+              , colors: options.colors.palette
             });
 
             // Create the terminal
@@ -153,22 +139,32 @@
                 window.close()
             });
 
+            function updateSettings(err, settings) {
+                // TODO Update colors
+                $(".terminal").css("font-size", settings.general.font_size);
+                term.updateSize();
+            }
+
+            term.socket.on("terminalSettings", updateSettings);
+
 
             tab.open(win.$.get(0));
             tab.focus();
             tab.on("data", function (data) {
-                term.socket.emit("data", data);
+                term.socket.emit("dataToServer", data);
             });
 
             win.bind();
 
             term.emit("load");
             term.emit("open");
-            term.updateSize();
+            updateSettings(null, options);
         }
 
         // Open the terminal
-        openTerm();
+        $.getJSON("/api/settings/get", function (options) {
+            openTerm(options);
+        });
     };
 })($);
 

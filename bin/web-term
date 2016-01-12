@@ -20,7 +20,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
   , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
   , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
-  , shellOption = new Clp.Option(["b", "shell"], "The shell program. By default `bash`.", "program", "bash")
+  , shellOption = new Clp.Option(["b", "shell"], "The shell program. By default `bash`.", "program")
   , startOption = new Clp.Option(["s", "start"], "The start program.", "program")
   , parser = new Clp({
         name: "Web Term"
@@ -83,10 +83,30 @@ app.page.add("/themes", "/Themes/index.html");
 app.page.add("/woo", "/Themes/woo/index.html");
 app.page.add("/run", "/Themes/woo/main.html");
 app.page.add("/doublerun", "/Themes/woo/terminals.html");
+app.page.add("/settings", "/settings.html");
 
 // Init Socket.IO
 app.io = SocketIO.listen(app._server, {
     log: false
+});
+
+app.page.add("/api/settings/save", function (lien) {
+    if (!lien.data) { return; }
+    WebTerm.writeSettings(lien.data, function (err, data) {
+        if (err) {
+            return lien.end(err, 400);
+        }
+        lien.end({});
+    });
+});
+
+app.page.add("/api/settings/get", function (lien) {
+    WebTerm.readSettings(function (err, data) {
+        if (err) {
+            return lien.end(err, 400);
+        }
+        lien.end(data);
+    });
 });
 
 // Handle connections
@@ -98,18 +118,20 @@ app.io.sockets.on("connection", function(socket) {
     var terminal = null;
 
     socket.on("create", function(cols, rows, callback) {
-        terminal = new WebTerm({
-            cols: cols
-          , rows: rows
-          , cwd: cwdOption.value || process.cwd()
-          , socket: socket
-          , start: startOption.value
-          , shell: shellOption.value
+        WebTerm.readSettings(function (err, settings) {
+            terminal = new WebTerm({
+                cols: cols
+              , rows: rows
+              , cwd: cwdOption.value || process.cwd()
+              , socket: socket
+              , start: startOption.value || settings.general.custom_command || undefined
+              , shell: shellOption.value || settings.general.shell
+            });
+            callback();
         });
-        callback();
     });
 
-    socket.on("data", function(data) {
+    socket.on("dataToServer", function(data) {
         if (!terminal) { return; }
         terminal.data(data);
     });
@@ -130,18 +152,10 @@ app.io.sockets.on("connection", function(socket) {
         terminal = null;
     });
 
-    socket.on("request paste", function(callback) {
-        if (!terminal) { return; }
-        terminal.paste(callback);
-    });
+    socket.on("requestReadSettings", WebTerm.sendTerminalSettings);
 });
 
-app.page.add("/copy", 'put', function(lien){
-    lien.req.on('data', function(chunk) {
-        app.io.emit('copy', chunk.toString());
-        lien.end();
-    });
-});
+WebTerm._watchConfig();
 
 // Listen for the server load
 app.on("load", function (err) {
@@ -152,6 +166,7 @@ app.on("load", function (err) {
     Logger.log("Successfully started the Web-Term server.");
     Logger.log("App is running on " + url);
     Logger.log("For more themes options, go to: " + url + "/themes");
+    Logger.log("For more settings, go to: " + url + "/settings");
     if (openOption.is_provided) {
         Open(url);
     }

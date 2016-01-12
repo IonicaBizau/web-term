@@ -21,7 +21,7 @@ div.terminal > div > span::first-letter {
 .terminal {
     padding: 5px;
     font-family: monospace;
-    font-size: 12px;
+    font-size: 14px;
     color: #f0f0f0;
     //background: #1A1A1A !important;
     position: fixed;
