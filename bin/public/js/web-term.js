@@ -99,10 +99,14 @@ if (typeof require === "function") {
             $bar.append($title);
 
             /// Create the tab
+            var colors = options.colors;
+            colors.palette[16] = colors.background || '#000000';
+            colors.palette[17] = colors.foreground || '#f0f0f0';
             var tab = term.tab = Terminal.call(term, {
                 cols: win.cols
               , rows: win.rows
-              , colors: options.colors.palette
+              , colors: colors.palette
+              , boldAsBright: options.general.boldAsBright || false
             });
 
             // Create the terminal

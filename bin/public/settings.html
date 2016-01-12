@@ -30,6 +30,13 @@
                             <label>Shell</label>
                             <input type="text" class="form-control" placeholder="Terminal font size" data-field="general.shell">
                         </div>
+                        <div class="form-group">
+                            <label>Set bold colors as bright</label>
+                            <select class="form-control" data-field="general.boldAsBright">
+                                <option value="0" selected>No</option>
+                                <option value="1">Yes</option>
+                            </select>
+                        </div>
 
                         <div class="form-actions">
                             <button type="submit" class="btn btn-form btn-primary">Save</button>
@@ -93,20 +100,18 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <input type="color" class="form-control" data-field="colors.palette.16">
+                                    Foreground:
+                                    <input type="color" class="form-control" data-field="colors.foreground">
                                 </div>
                                 <div class="col">
-                                    <input type="color" class="form-control" data-field="colors.palette.17">
+                                    Background:
+                                    <input type="color" class="form-control" data-field="colors.background">
                                 </div>
                                 <div class="col"> </div>
                                 <div class="col"> </div>
-                                <div class="col"> </div>
-                                <div class="col"> </div>
-                                <div class="col"> </div>
-                                <div class="col"> </div>
                             </div>
-                            <div class="row palettes">
-                            </div>
+                            <h4>Pre-arranged Palettes <small>(will populate the palette above)</h4>
+                            <div class="row palettes"></div>
                         </div>
                     </div>
                 </div>
