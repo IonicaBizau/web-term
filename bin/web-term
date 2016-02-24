@@ -179,7 +179,7 @@ WebTerm._watchConfig();
 
 // Listen for the server load
 app.on("load", function (err) {
-    var url = "http://" + (hostOption.value || "localhost") + ":" + portOption.value;
+    var url = "http" + (ssl ? "s" : "") + "://" + (hostOption.value || "localhost") + ":" + portOption.value;
     if (err) {
         return Logger.log("Cannot start the server: " + err.toString(), "error");
     }
