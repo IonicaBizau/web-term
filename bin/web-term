@@ -12,6 +12,7 @@ var Lien = require("lien")
   , IsThere = require("is-there")
   , Diable = require("diable")
   , Open = require("opn")
+  , abs = require("abs")
   ;
 
 // Create options and add them
@@ -22,6 +23,8 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
   , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
   , shellOption = new Clp.Option(["b", "shell"], "The shell program. By default `bash`.", "program")
   , startOption = new Clp.Option(["s", "start"], "The start program.", "program")
+  , certOption = new Clp.Option(["C", "cert"], "The path to the certificate file.", "path")
+  , keyOption = new Clp.Option(["K", "key"], "The path to the key file.", "path")
   , parser = new Clp({
         name: "Web Term"
       , version: Package.version
@@ -35,9 +38,10 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
           , "web-term -c path/to/some/dir"
           , "web-term -o # Opens the web-term in the browser"
           , "web-term -s alsamixer # Opens alsamixer in the browser"
+          , "web-term -C path/to/cert.pem -K path/to/key.pem # https support"
         ]
       , docs_url: Package.homepage
-    }, [portOption, daemonOption, cwdOption, hostOption, openOption, shellOption, startOption])
+    }, [portOption, daemonOption, cwdOption, hostOption, openOption, shellOption, startOption, certOption, keyOption])
   ;
 
 
@@ -65,11 +69,28 @@ if (cwdOption.is_provided) {
     }
 }
 
+
+var ssl = {
+    cert: certOption.value
+  , key: keyOption.value
+};
+
+if (!ssl.cert && !ssl.key) {
+    ssl = null;
+} else if (ssl.cert && !ssl.key || ssl.key && !ssl.cert) {
+    Logger.log("If you want to enable https, pass both key and certificate paths.", "warn");
+    ssl = null;
+} else {
+    ssl.cert = abs(ssl.cert);
+    ssl.key = abs(ssl.key);
+}
+
 // Init the server
 var app = new Lien({
     host: hostOption.value
   , port: portOption.value
   , root: __dirname + "/public"
+  , ssl: ssl
 });
 
 // Add the route
