@@ -28,6 +28,8 @@ Options:
                          opened in the default browser.                 
   -b, --shell <program>  The shell program. By default `bash`.          
   -s, --start <program>  The start program.                             
+  -C, --cert <path>      The path to the certificate file.              
+  -K, --key <path>       The path to the key file.                      
   -h, --help             Displays this help.                            
   -v, --version          Displays version information.                  
 
@@ -39,6 +41,7 @@ Examples:
   web-term -c path/to/some/dir
   web-term -o # Opens the web-term in the browser
   web-term -s alsamixer # Opens alsamixer in the browser
+  web-term -C path/to/cert.pem -K path/to/key.pem # https support
 
 Documentation can be found at https://github.com/IonicaBizau/web-term
 ```
