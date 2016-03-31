@@ -25,6 +25,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
   , startOption = new Clp.Option(["s", "start"], "The start program.", "program")
   , certOption = new Clp.Option(["C", "cert"], "The path to the certificate file.", "path")
   , keyOption = new Clp.Option(["K", "key"], "The path to the key file.", "path")
+  , ptyOptionsOption = new Clp.Option(["P", "pty-options"], "Additional options to pass to the pty library.", "json")
   , parser = new Clp({
         name: "Web Term"
       , version: Package.version
@@ -41,7 +42,7 @@ var portOption = new Clp.Option(["p", "port"], "The web term server port.", "por
           , "web-term -C path/to/cert.pem -K path/to/key.pem # https support"
         ]
       , docs_url: Package.homepage
-    }, [portOption, daemonOption, cwdOption, hostOption, openOption, shellOption, startOption, certOption, keyOption])
+    }, [portOption, daemonOption, cwdOption, hostOption, openOption, shellOption, startOption, certOption, keyOption, ptyOptionsOption])
   ;
 
 
@@ -129,6 +130,14 @@ app.page.add("/api/settings/get", function (lien) {
     });
 });
 
+if (ptyOptionsOption.is_provided) {
+    try {
+        ptyOptionsOption.value = JSON.parse(ptyOptionsOption.value);
+    } catch (e) {
+        return Logger.log(new Error("Failed to parse the pty options. Make sure you pass valid data."));
+    }
+}
+
 // Handle connections
 app.io.sockets.on("connection", function(socket) {
     var req = socket.handshake;
@@ -146,6 +155,13 @@ app.io.sockets.on("connection", function(socket) {
               , socket: socket
               , start: startOption.value || settings.general.custom_command || undefined
               , shell: shellOption.value || settings.general.shell
+           // , ptyOptions: {
+           //     env: {
+           //        WEB_TERM_USER: "my-web-term-user",
+           //        WEB_TERM_HOST: "my-web-term-host",
+           //     }
+           //  }
+              , ptyOptions: ptyOptionsOption.value
             });
             callback();
         });
