@@ -17,6 +17,8 @@ Creates a new terminal instance.
  - `cwd` (String): The current working directory (default: the home directory).
  - `shell` (String): The shell to start (by default the shell).
  - `start` (String): The start program.
+ - `ptyOptions` (Object): Custom options for the pty.js fork call
+ - `inheritEnv` (Boolean): If `false`, it will prevent web-term to take the environment variables from the main process.
 
 #### Return
 - **Terminal** The terminal instance.
