@@ -1,209 +1,249 @@
 #!/usr/bin/env node
 
+"use strict";
+
 // Dependencies
-var Lien = require("lien")
-  , WebTerm = require(__dirname + "/../lib")
-  , Pty = require("pty.js")
-  , SocketIO = require("socket.io")
-  , Logger = require("bug-killer")
-  , Clp = require("clp")
-  , Package = require("../package")
-  , Path = require("path")
-  , IsThere = require("is-there")
-  , Diable = require("diable")
-  , Open = require("opn")
-  , abs = require("abs")
-  ;
+const Lien = require("lien")
+    , WebTerm = require(__dirname + "/../lib")
+    , Pty = require("pty.js")
+    , SocketIO = require("socket.io")
+    , Logger = require("bug-killer")
+    , Tilda = require("tilda")
+    , Path = require("path")
+    , IsThere = require("is-there")
+    , Diable = require("diable")
+    , Open = require("opn")
+    , abs = require("abs")
+    ;
 
-// Create options and add them
-var portOption = new Clp.Option(["p", "port"], "The web term server port.", "port", 9000)
-  , hostOption = new Clp.Option(["H", "host"], "The host to listen to.", "0.0.0.0")
-  , daemonOption = new Clp.Option(["d", "daemon"], "Start web term as background process.")
-  , cwdOption = new Clp.Option(["c", "cwd"], "The path to the web terminal current working directory.", "path")
-  , openOption = new Clp.Option(["o", "open"], "If provided, the web term will be automatically opened in the default browser.")
-  , shellOption = new Clp.Option(["b", "shell"], "The shell program. By default `bash`.", "program")
-  , startOption = new Clp.Option(["s", "start"], "The start program.", "program")
-  , certOption = new Clp.Option(["C", "cert"], "The path to the certificate file.", "path")
-  , keyOption = new Clp.Option(["K", "key"], "The path to the key file.", "path")
-  , ptyOptionsOption = new Clp.Option(["P", "pty-options"], "Additional options to pass to the pty library.", "json")
-  , parser = new Clp({
-        name: "Web Term"
-      , version: Package.version
-      , process: true
-      , exe: Package.name
-      , examples: [
-            "web-term # Default behavior"
-          , "web-term -p 8080 # start on 0.0.0.0:8080"
-          , "web-term -p 8080 -h localhost # start on localhost:8080"
-          , "web-term -d # daemonize"
-          , "web-term -c path/to/some/dir"
-          , "web-term -o # Opens the web-term in the browser"
-          , "web-term -s alsamixer # Opens alsamixer in the browser"
-          , "web-term -C path/to/cert.pem -K path/to/key.pem # https support"
-        ]
-      , docs_url: Package.homepage
-    }, [portOption, daemonOption, cwdOption, hostOption, openOption, shellOption, startOption, certOption, keyOption, ptyOptionsOption])
-  ;
-
-
-// Daemonize the process
-if (!Diable.isDaemon() && daemonOption.is_provided) {
-    Logger.log("Starting as daemon.");
-    Logger.log("process id:" + Diable({ args: process.argv.slice(2), exit: false }).pid);
-    return;
-}
-
-// Validate the port
-if (portOption.is_provided) {
-    portOption.value = parseInt(portOption.value);
-    if (isNaN(portOption.value)) {
-        return Logger.log("The provided port is invalid.", "error");
-    }
-}
-
-// Validate the CWD
-if (cwdOption.is_provided) {
-    cwdOption.value = Path.normalize(cwdOption.value);
-    if (!IsThere(cwdOption.value)) {
-        Logger.log("The provided CWD doesn't exist. Using the default cwd.", "warn");
-        cwdOption.value = null;
-    }
-}
-
-
-var ssl = {
-    cert: certOption.value
-  , key: keyOption.value
-};
-
-if (!ssl.cert && !ssl.key) {
-    ssl = null;
-} else if (ssl.cert && !ssl.key || ssl.key && !ssl.cert) {
-    Logger.log("If you want to enable https, pass both key and certificate paths.", "warn");
-    ssl = null;
-} else {
-    ssl.cert = abs(ssl.cert);
-    ssl.key = abs(ssl.key);
-}
-
-// Init the server
-var app = new Lien({
-    host: hostOption.value
-  , port: portOption.value
-  , root: __dirname + "/public"
-  , ssl: ssl
+let parser = new Tilda(`${__dirname}/../package.json`, {
+    examples: [
+        "web-term # Default behavior"
+      , "web-term -p 8080 # start on 0.0.0.0:8080"
+      , "web-term -p 8080 -h localhost # start on localhost:8080"
+      , "web-term -d # daemonize"
+      , "web-term -c path/to/some/dir"
+      , "web-term -o # Opens the web-term in the browser"
+      , "web-term -s alsamixer # Opens alsamixer in the browser"
+      , "web-term -C path/to/cert.pem -K path/to/key.pem # https support"
+    ]
 });
 
-// Add the route
-app.page.add("/", "index.html");
-app.page.add("/vs", "vertical-split.html");
-app.page.add("/hs", "horizontal-split.html");
+parser.option([
+    {
+        opts: ["p", "port"]
+      , desc: "The web term server port."
+      , name: "port"
+      , type: Number
+      , default: 9000
+    }
+  , {
+        opts: ["H", "host"]
+      , desc: "The host to listen to."
+      , name: "host"
+      , type: String
+    }
+  , {
+        opts: ["d", "daemon"]
+      , desc: "Start web term as background process."
+    }
+  , {
+        opts: ["c", "cwd"]
+      , desc: "The path to the web terminal current working directory."
+      , name: "path"
+    }
+  , {
+        opts: ["o", "open"]
+      , desc: "If provided, the web term will be automatically opened in the default browser."
+    }
+  , {
+        opts: ["b", "shell"]
+      , desc: "The shell program. By default `bash`."
+      , name: "program"
+      , type: String
+    }
+  , {
+        opts: ["s", "start"]
+      , desc: "The start program."
+      , name: "program"
+      , type: String
+    }
+  , {
+        opts: ["C", "cert"]
+      , desc: "The path to the certificate file."
+      , name: "path"
+      , type: String
+    }
+  , {
+        opts: ["K", "key"]
+      , desc: "The path to the key file."
+      , name: "path"
+      , type: String
+    }
+  , {
+        opts: ["P", "pty-options"]
+      , desc: "Additional options to pass to the pty library."
+      , name: "json"
+      , type: String
+    }
+]).main(action => {
 
-// Themes options
-app.page.add("/themes", "/Themes/index.html");
-app.page.add("/woo", "/Themes/woo/index.html");
-app.page.add("/run", "/Themes/woo/main.html");
-app.page.add("/doublerun", "/Themes/woo/terminals.html");
-app.page.add("/settings", "/settings.html");
+    // Daemonize the process
+    if (!Diable.isDaemon() && action.options.daemon.is_provided) {
+        Logger.log("Starting as daemon.");
+        Logger.log("process id:" + Diable({ args: process.argv.slice(2), exit: false }).pid);
+        return;
+    }
 
-// Init Socket.IO
-app.io = SocketIO.listen(app._server, {
-    log: false
-});
+    let opts = action.options
+      , cwdOpt = opts.cwd
+      , certOpt = opts.cert
+      , keyOpt = opts.key
+      , hostOpt = opts.host
+      , portOpt = opts.port
+      , ptyOptsOpt = opts.P
+      , openOpt = opts.open
+      , startOpt = opts.start
+      , shellOpt = opts.shell
+      ;
 
-app.page.add("/api/settings/save", function (lien) {
-    if (!lien.data) { return; }
-    WebTerm.writeSettings(lien.data, function (err, data) {
-        if (err) {
-            return lien.end(err, 400);
+    // Validate the CWD
+    if (cwdOpt.is_provided) {
+        cwd.value = Path.normalize(cwdOpt.value);
+        if (!IsThere(cwdOpt.value)) {
+            Logger.log("The provided CWD doesn't exist. Using the default cwd.", "warn");
+            cwdOpt.value = null;
         }
-        lien.end({});
-    });
-});
-
-app.page.add("/api/settings/get", function (lien) {
-    WebTerm.readSettings(function (err, data) {
-        if (err) {
-            return lien.end(err, 400);
-        }
-        lien.end(data);
-    });
-});
-
-if (ptyOptionsOption.is_provided) {
-    try {
-        ptyOptionsOption.value = JSON.parse(ptyOptionsOption.value);
-    } catch (e) {
-        return Logger.log(new Error("Failed to parse the pty options. Make sure you pass valid data."));
     }
-}
 
-// Handle connections
-app.io.sockets.on("connection", function(socket) {
-    var req = socket.handshake;
-    var user = req.user;
+    let ssl = {
+        cert: certOpt.value
+      , key: keyOpt.value
+    };
 
-    // One terminal per web-socket
-    var terminal = null;
+    if (!ssl.cert && !ssl.key) {
+        ssl = null;
+    } else if (ssl.cert && !ssl.key || ssl.key && !ssl.cert) {
+        Logger.log("If you want to enable https, pass both key and certificate paths.", "warn");
+        ssl = null;
+    } else {
+        ssl.cert = abs(ssl.cert);
+        ssl.key = abs(ssl.key);
+    }
 
-    socket.on("create", function(cols, rows, callback) {
-        WebTerm.readSettings(function (err, settings) {
-            terminal = new WebTerm({
-                cols: cols
-              , rows: rows
-              , cwd: cwdOption.value || process.cwd()
-              , socket: socket
-              , start: startOption.value || settings.general.custom_command || undefined
-              , shell: shellOption.value || settings.general.shell
-           // , ptyOptions: {
-           //     env: {
-           //        WEB_TERM_USER: "my-web-term-user",
-           //        WEB_TERM_HOST: "my-web-term-host",
-           //     }
-           //  }
-              , ptyOptions: ptyOptionsOption.value
-            });
-            callback();
+    // Init the server
+    let app = new Lien({
+        host: hostOpt.value
+      , port: portOpt.value
+      , public: __dirname + "/public"
+      , ssl: ssl
+    });
+
+    // Add the route
+    app.addPage("/", "index.html");
+    app.addPage("/vs", "vertical-split.html");
+    app.addPage("/hs", "horizontal-split.html");
+
+    // Themes options
+    app.addPage("/themes", "/Themes/index.html");
+    app.addPage("/woo", "/Themes/woo/index.html");
+    app.addPage("/run", "/Themes/woo/main.html");
+    app.addPage("/doublerun", "/Themes/woo/terminals.html");
+    app.addPage("/settings", "/settings.html");
+
+    // Init Socket.IO
+    app.io = SocketIO.listen(app.server, {
+        log: false
+    });
+
+    app.addPage("/api/settings/save", function (lien) {
+        if (!lien.data) { return; }
+        WebTerm.writeSettings(lien.data, function (err, data) {
+            if (err) {
+                return lien.end(err, 400);
+            }
+            lien.end({});
         });
     });
 
-    socket.on("dataToServer", function(data) {
-        if (!terminal) { return; }
-        terminal.data(data);
+    app.addPage("/api/settings/get", function (lien) {
+        WebTerm.readSettings(function (err, data) {
+            if (err) {
+                return lien.end(err, 400);
+            }
+            lien.end(data);
+        });
     });
 
-    socket.on("kill", function() {
-        if (!terminal) { return; }
-        terminal.kill();
-    });
-
-    socket.on("resize", function(cols, rows) {
-        if (!terminal) { return; }
-        terminal.resize(cols, rows);
-    });
-
-    socket.on("disconnect", function() {
-        if (!terminal) { return; }
-        terminal.kill();
-        terminal = null;
-    });
-
-    socket.on("requestReadSettings", WebTerm.sendTerminalSettings);
-});
-
-WebTerm._watchConfig();
-
-// Listen for the server load
-app.on("load", function (err) {
-    var url = "http" + (ssl ? "s" : "") + "://" + (hostOption.value || "localhost") + ":" + portOption.value;
-    if (err) {
-        return Logger.log("Cannot start the server: " + err.toString(), "error");
+    if (ptyOptsOpt.is_provided) {
+        try {
+            ptyOptsOpt.value = JSON.parse(ptyOptsOpt.value);
+        } catch (e) {
+            return Logger.log(new Error("Failed to parse the pty options. Make sure you pass valid data."));
+        }
     }
-    Logger.log("Successfully started the Web-Term server.");
-    Logger.log("App is running on " + url);
-    Logger.log("For more themes options, go to: " + url + "/themes");
-    Logger.log("For more settings, go to: " + url + "/settings");
-    if (openOption.is_provided) {
-        Open(url);
-    }
+
+    // Handle connections
+    app.io.sockets.on("connection", function(socket) {
+        var req = socket.handshake;
+        var user = req.user;
+
+        // One terminal per web-socket
+        var terminal = null;
+
+        socket.on("create", function(cols, rows, callback) {
+            WebTerm.readSettings(function (err, settings) {
+                terminal = new WebTerm({
+                    cols: cols
+                  , rows: rows
+                  , cwd: cwdOpt.value || process.cwd()
+                  , socket: socket
+                  , start: startOpt.value || settings.general.custom_command || undefined
+                  , shell: shellOpt.value || settings.general.shell
+                  , ptyOpts: ptyOptsOpt.value
+                });
+                callback();
+            });
+        });
+
+        socket.on("dataToServer", function(data) {
+            if (!terminal) { return; }
+            terminal.data(data);
+        });
+
+        socket.on("kill", function() {
+            if (!terminal) { return; }
+            terminal.kill();
+        });
+
+        socket.on("resize", function(cols, rows) {
+            if (!terminal) { return; }
+            terminal.resize(cols, rows);
+        });
+
+        socket.on("disconnect", function() {
+            if (!terminal) { return; }
+            terminal.kill();
+            terminal = null;
+        });
+
+        socket.on("requestReadSettings", WebTerm.sendTerminalSettings);
+    });
+
+    WebTerm._watchConfig();
+
+    // Listen for the server load
+    app.on("load", function (err) {
+        var url = "http" + (ssl ? "s" : "") + "://" + (hostOpt.value || "localhost") + ":" + portOpt.value;
+        if (err) {
+            return Logger.log("Cannot start the server: " + err.toString(), "error");
+        }
+        Logger.log("Successfully started the Web-Term server.");
+        Logger.log("App is running on " + url);
+        Logger.log("For more themes options, go to: " + url + "/themes");
+        Logger.log("For more settings, go to: " + url + "/settings");
+        if (openOpt.is_provided) {
+            Open(url);
+        }
+    });
 });
