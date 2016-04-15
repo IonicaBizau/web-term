@@ -185,11 +185,11 @@ parser.option([
 
     // Handle connections
     app.io.sockets.on("connection", function(socket) {
-        var req = socket.handshake;
-        var user = req.user;
-
         // One terminal per web-socket
-        var terminal = null;
+        let req = socket.handshake
+          , user = req.user
+          , terminal = null;
+          ;
 
         socket.on("create", function(cols, rows, callback) {
             WebTerm.readSettings(function (err, settings) {
@@ -234,7 +234,7 @@ parser.option([
 
     // Listen for the server load
     app.on("load", function (err) {
-        var url = "http" + (ssl ? "s" : "") + "://" + (hostOpt.value || "localhost") + ":" + portOpt.value;
+        let url = "http" + (ssl ? "s" : "") + "://" + (hostOpt.value || "localhost") + ":" + portOpt.value;
         if (err) {
             return Logger.log("Cannot start the server: " + err.toString(), "error");
         }

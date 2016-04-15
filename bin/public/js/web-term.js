@@ -42,7 +42,8 @@ if (typeof require === "function") {
         var span = document.createElement("span");
         var newContent = document.createTextNode("o");
         span.appendChild(newContent);
-        $self.get(0).children[0].appendChild(span)
+        var domEl = $self.get(0);
+        domEl && domEl.children && domEl.children.length && domEl.children[0].appendChild(span);
 
         var charSize = getOuterDimensions(span, row);
         var targetSize = getOuterDimensions($self.get(0));
