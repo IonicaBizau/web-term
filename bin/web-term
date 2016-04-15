@@ -10,9 +10,9 @@ const Lien = require("lien")
     , Logger = require("bug-killer")
     , Tilda = require("tilda")
     , Path = require("path")
-    , IsThere = require("is-there")
-    , Diable = require("diable")
-    , Open = require("opn")
+    , isThere = require("is-there")
+    , diable = require("diable")
+    , open = require("opn")
     , abs = require("abs")
     ;
 
@@ -89,9 +89,9 @@ parser.option([
 ]).main(action => {
 
     // Daemonize the process
-    if (!Diable.isDaemon() && action.options.daemon.is_provided) {
+    if (!diable.isDaemon() && action.options.daemon.is_provided) {
         Logger.log("Starting as daemon.");
-        Logger.log("process id:" + Diable({ args: process.argv.slice(2), exit: false }).pid);
+        Logger.log("process id:" + diable({ args: process.argv.slice(2), exit: false }).pid);
         return;
     }
 
@@ -109,8 +109,8 @@ parser.option([
 
     // Validate the CWD
     if (cwdOpt.is_provided) {
-        cwd.value = Path.normalize(cwdOpt.value);
-        if (!IsThere(cwdOpt.value)) {
+        cwdOpt.value = Path.normalize(cwdOpt.value);
+        if (!isThere(cwdOpt.value)) {
             Logger.log("The provided CWD doesn't exist. Using the default cwd.", "warn");
             cwdOpt.value = null;
         }
@@ -188,7 +188,7 @@ parser.option([
         // One terminal per web-socket
         let req = socket.handshake
           , user = req.user
-          , terminal = null;
+          , terminal = null
           ;
 
         socket.on("create", function(cols, rows, callback) {
@@ -243,7 +243,7 @@ parser.option([
         Logger.log("For more themes options, go to: " + url + "/themes");
         Logger.log("For more settings, go to: " + url + "/settings");
         if (openOpt.is_provided) {
-            Open(url);
+            open(url);
         }
     });
 });
