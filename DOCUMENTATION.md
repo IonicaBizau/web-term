@@ -1,14 +1,9 @@
 ## Documentation
+
 You can see below the API reference of this module.
 
-### `WebTerm()`
+### `WebTerm(options)`
 Creates a new `WebTerm` instance.
-
-#### Return
-- **WebTerm** The `WebTerm` instance.
-
-### `create(options)`
-Creates a new terminal instance.
 
 #### Params
 - **Object** `options`: Creates a new terminal instance:
@@ -22,6 +17,7 @@ Creates a new terminal instance.
 
 #### Return
 - **Terminal** The terminal instance.
+- **WebTerm** The `WebTerm` instance.
 
 ### `sendTerminalSettings(callback)`
 Sends the terminal settings accross the sockets.
