@@ -1,6 +1,6 @@
 {
   "name": "web-term",
-  "version": "5.0.3",
+  "version": "5.0.4",
   "description": "A full screen terminal in your browser.",
   "main": "lib/index.js",
   "bin": {
@@ -85,6 +85,7 @@
     "src/",
     "resources/",
     "menu/",
+    "scripts/",
     "cli.js",
     "index.js"
   ]
