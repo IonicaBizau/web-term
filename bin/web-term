@@ -91,7 +91,7 @@ parser.option([
     // Daemonize the process
     if (!diable.isDaemon() && action.options.daemon.is_provided) {
         Logger.log("Starting as daemon.");
-        Logger.log("process id:" + diable({ args: process.argv.slice(2), exit: false }).pid);
+        diable();
         return;
     }
 
