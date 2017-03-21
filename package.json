@@ -1,6 +1,6 @@
 {
   "name": "web-term",
-  "version": "5.0.7",
+  "version": "5.0.8",
   "description": "A full screen terminal in your browser.",
   "main": "lib/index.js",
   "bin": {
@@ -18,7 +18,7 @@
     "browser",
     "terminal"
   ],
-  "author": "Ionică Bizău <bizauionica@gmail.com> (http://ionicabizau.net)",
+  "author": "Ionică Bizău <bizauionica@gmail.com> (https://ionicabizau.net)",
   "contributors": [
     "MisterZik <misterzik@insanen.com> (http://insanen.com)",
     "Christopher Jeffrey <chjjeffrey@gmail.com>",
@@ -81,12 +81,11 @@
     "bin/",
     "app/",
     "lib/",
-    "build/",
     "dist/",
     "src/",
+    "scripts/",
     "resources/",
     "menu/",
-    "scripts/",
     "cli.js",
     "index.js"
   ]
