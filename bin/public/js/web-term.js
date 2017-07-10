@@ -78,7 +78,9 @@ if (typeof require === "function") {
         });
 
         function openTerm(options) {
-            term.socket = io.connect();
+            term.socket = io.connect({
+                query: location.search.substring(1)
+            });
 
             // Initialize ui
             /// Create the window
