@@ -165,11 +165,11 @@ parser.option([
     app.addPage("/hs", "horizontal-split.html");
 
     // Themes options
-    app.addPage("/themes", "/Themes/index.html");
-    app.addPage("/woo", "/Themes/woo/index.html");
-    app.addPage("/run", "/Themes/woo/main.html");
-    app.addPage("/doublerun", "/Themes/woo/terminals.html");
-    app.addPage("/settings", "/settings.html");
+    app.addPage("/themes", "Themes/index.html");
+    app.addPage("/woo", "Themes/woo/index.html");
+    app.addPage("/run", "Themes/woo/main.html");
+    app.addPage("/doublerun", "Themes/woo/terminals.html");
+    app.addPage("/settings", "settings.html");
 
     // Init Socket.IO
     app.io = SocketIO.listen(app.server, {

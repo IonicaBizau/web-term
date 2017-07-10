@@ -158,7 +158,7 @@ if (typeof require === "function") {
         }
 
         // Open the terminal
-        $.getJSON("/api/settings/get", function (options) {
+        $.getJSON("/api/settings/get" + location.search, function (options) {
             openTerm(options);
         });
     };

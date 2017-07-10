@@ -41,7 +41,7 @@ function selectPalette(palette){
 }
 $(document).ready(function () {
     var $form = $("form").serializer();
-    $.getJSON("/api/settings/get", function (json) {
+    $.getJSON("/api/settings/get" + location.search, function (json) {
         $form.trigger("serializer:fill", json);
     });
     var $submitButton = $(".btn-primary");
@@ -55,7 +55,7 @@ $(document).ready(function () {
        );
        console.log(data)
         $.ajax({
-            url: "/api/settings/save"
+            url: "/api/settings/save" + location.search
           , data: JSON.stringify(data)
           , dataType: "json"
           , contentType : 'application/json'
@@ -74,9 +74,9 @@ $(document).ready(function () {
         if(data.background)
             styles += 'background-color:' + data.background + ';';
         if(data.foreground)
-             styles += "color:" + data.foreground + ';'; 
+             styles += "color:" + data.foreground + ';';
         styles += '"';
-            
+
         function addNote(note){
             return "    " +
                 note.substring(0,4) == '<div' ? note :
