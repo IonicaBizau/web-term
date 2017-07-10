@@ -27,16 +27,17 @@ Usage: web-term [options]
 A full screen terminal in your browser.
 
 Options:
-  -P, --pty-options <json>  Additional options to pass to the pty library.
+  --authentication-key      An optional authentication key.
   -p, --port <port>         The web term server port.
   -H, --host <host>         The host to listen to.
   -d, --daemon              Start web term as background process.
   -c, --cwd <path>          The path to the web terminal current working
                             directory.
-  -K, --key <path>          The path to the key file.
+  -P, --pty-options <json>  Additional options to pass to the pty library.
   -b, --shell <program>     The shell program. By default `bash`.
   -s, --start <program>     The start program.
   -C, --cert <path>         The path to the certificate file.
+  -K, --key <path>          The path to the key file.
   -o, --open                If provided, the web term will be automatically
                             opened in the default browser.
   -h, --help                Displays this help.
