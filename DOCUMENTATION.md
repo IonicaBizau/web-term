@@ -6,6 +6,7 @@ You can see below the API reference of this module.
 Creates a new `WebTerm` instance.
 
 #### Params
+
 - **Object** `options`: Creates a new terminal instance:
  - `cols` (Number): The number of columns.
  - `rows` (Number): The number of rows.
@@ -23,6 +24,7 @@ Creates a new `WebTerm` instance.
 Sends the terminal settings accross the sockets.
 
 #### Params
+
 - **Function** `callback`: The callback function.
 
 ### `_watchConfig()`
@@ -32,12 +34,14 @@ Watches the config file for changes.
 Reads the settings from the config file.
 
 #### Params
+
 - **Function** `callback`: The callback function.
 
 ### `writeSettings(data, callback)`
 Writes the settings in the config file.
 
 #### Params
+
 - **Object** `data`: The new settings.
 - **Function** `callback`: The callback function.
 
@@ -45,6 +49,7 @@ Writes the settings in the config file.
 Writes data in the `WebTerm` instance.
 
 #### Params
+
 - **Buffer** `data`: The buffer to write.
 
 ### `kill()`
@@ -54,6 +59,7 @@ Destroys the `WebTerm` instance.
 Resizes the terminal.
 
 #### Params
+
 - **Number** `cols`: The number of columns.
 - **Number** `rows`: The number of rows.
 
