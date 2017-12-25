@@ -15,7 +15,11 @@ You can install the package globally and use it as command line tool:
 
 
 ```sh
-$ npm i -g web-term
+# Using npm
+npm install --global web-term
+
+# Using yarn
+yarn global add web-term
 ```
 
 
@@ -59,10 +63,13 @@ Documentation can be found at https://github.com/IonicaBizau/web-term.
 ```
 
 ## Screenshots
+
 ### VIM
+
 ![](http://i.imgur.com/49FTpfI.png)
 
 ### Alsamixer
+
 ![](http://i.imgur.com/rJbtLdi.jpg)
 
 
