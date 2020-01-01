@@ -5,7 +5,6 @@
 // Dependencies
 const Lien = require("lien")
     , WebTerm = require(__dirname + "/../lib")
-    , Pty = require("pty.js")
     , SocketIO = require("socket.io")
     , Logger = require("bug-killer")
     , Tilda = require("tilda")
