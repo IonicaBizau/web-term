@@ -1,6 +1,6 @@
 {
   "name": "web-term",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "A full screen terminal in your browser.",
   "main": "lib/index.js",
   "bin": {
@@ -88,6 +88,8 @@
     "menu/",
     "cli.js",
     "index.js",
+    "index.d.ts",
+    "package-lock.json",
     "bloggify.js",
     "bloggify.json",
     "bloggify/"
